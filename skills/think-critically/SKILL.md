@@ -61,6 +61,13 @@ Go through the numbered expectation list one by one. For each, assign a severity
 
 Be honest. A rating of LIKELY is not the same as SATISFIED. The goal is deterministic, reliable output — anything less than SATISFIED is a gap.
 
+**Calibration examples:**
+- **SATISFIED**: The prompt says "output as JSON with keys: name, age, email" → format and structure are explicit.
+- **LIKELY**: The prompt says "output structured data" without specifying format → the LLM will probably choose JSON but might choose YAML or a table.
+- **UNCERTAIN**: The prompt says "summarize the results" → could mean a paragraph, bullet points, a table, or a single sentence depending on the LLM's interpretation.
+- **UNLIKELY**: The expected output requires sorted results but the prompt never mentions ordering → the LLM might sort incidentally but has no instruction to do so.
+- **MISSING**: The expected output requires error handling for empty input but the prompt only describes the happy path → no mechanism exists to produce this behavior.
+
 ### Step 5: Identify Structural Issues
 
 Beyond individual expectations, evaluate the prompt's architecture. For each issue found, assign a severity: **HIGH** (will cause failures), **MEDIUM** (may cause failures under some conditions), or **LOW** (minor improvement opportunity).
@@ -118,6 +125,20 @@ Each recommendation must:
 ```
 
 If the verdict is CONVERGED, the Recommendations section should state: "No further changes recommended. The prompt reliably produces the expected output." Do not invent issues to fill space.
+
+### Worked Example (abbreviated)
+
+**Input prompt:** "You are a translator. Translate the user's text into French."
+**Expected output:** Accurate French translation of any English input.
+
+**Expectations:**
+1. Output is in French → **SATISFIED** (explicitly stated)
+2. Translation is accurate → **LIKELY** (LLMs translate well but no quality constraints are given, e.g., formal vs. informal register)
+3. Handles non-English input gracefully → **MISSING** (prompt assumes English input but doesn't say what to do with, e.g., Japanese input)
+
+**Structural issue:** No edge case handling — **MEDIUM**. The prompt only describes the happy path (English → French).
+
+**Recommendation:** After "Translate the user's text into French", add: "If the input is not in English, translate it into French anyway. If the input is already in French, return it unchanged." This addresses expectation #3 and the structural issue.
 
 ## Constraints
 
