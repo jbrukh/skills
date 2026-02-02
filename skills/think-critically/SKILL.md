@@ -20,9 +20,11 @@ If the user provides both, they may be separated by a clear delimiter. If no cle
 
 ## Process
 
+> **INVARIANT:** Every response must end with a `## Critical Analysis` section containing the Expectations Scorecard table. If the analysis is incomplete (e.g., waiting for user clarification), produce a partial scorecard with ratings marked as `PENDING`. No exception.
+
 ### Step 1: Parse and Separate
 
-Identify the prompt/document and the expected output. If the expected output was not provided and cannot be clearly inferred from the document itself or the conversation context, **stop and ask the user** what output they expect before continuing. Restate each briefly to confirm understanding. If anything is unclear, ask before proceeding.
+Identify the prompt/document and the expected output. If the expected output was not provided and cannot be clearly inferred from the document itself or the conversation context, ask the user what output they expect. While waiting for clarification, still produce a partial Critical Analysis section: list whatever expectations you can infer so far in the Expectations Scorecard table with ratings marked as PENDING, and note what information is needed to complete the analysis. Restate each briefly to confirm understanding. If anything is unclear, ask before proceeding.
 
 ### Step 2: Decompose Expectations
 
