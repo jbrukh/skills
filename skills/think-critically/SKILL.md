@@ -33,7 +33,7 @@ Break the expected output into a numbered list of **discrete, testable expectati
 
 List every expectation you can extract — explicit and implicit. The user often has expectations they haven't articulated. Surface those.
 
-Your scorecard should contain at least 5 expectations. If you can only extract fewer, you are likely missing implicit expectations — think harder about what the user assumes but hasn't stated.
+Aim for at least 5 expectations by surfacing implicit ones the user assumes but hasn't stated. If after genuine effort fewer than 5 exist, that's acceptable — do not manufacture thin expectations to meet a count.
 
 ### Step 3: Simulate LLM Processing
 
@@ -46,6 +46,8 @@ Walk through the prompt as an LLM would receive it. For each section or instruct
 - **Where would the LLM drift?** Long prompts cause drift — identify sections where the LLM is likely to lose focus, skip steps, or improvise.
 
 **Grounding requirement:** For every issue you identify, you must: (1) quote the specific passage from the prompt, (2) state what a literal-minded LLM would produce given those exact words, and (3) explain how that diverges from the expected output. Do not make abstract claims about the prompt without pointing to concrete text.
+
+**Reminder:** Identify real issues only. If a section has no issues, say so and move on.
 
 ### Step 4: Evaluate Against Each Expectation
 
@@ -60,6 +62,8 @@ Go through the numbered expectation list one by one. For each, assign a severity
 | MISSING | The prompt has no mechanism to produce this expectation |
 
 Be honest. A rating of LIKELY is not the same as SATISFIED. The goal is deterministic, reliable output — anything less than SATISFIED is a gap.
+
+**Grounding requirement:** For any rating below SATISFIED, quote the passage (or note the absence of a passage) that justifies the rating.
 
 **Calibration examples:**
 - **SATISFIED**: The prompt says "output as JSON with keys: name, age, email" → format and structure are explicit.
@@ -77,6 +81,8 @@ Beyond individual expectations, evaluate the prompt's architecture. For each iss
 - **Redundancy**: are important instructions stated once (fragile) or reinforced (robust)?
 - **Escape hatches**: does the prompt handle edge cases, or does it only describe the happy path?
 - **Constraint clarity**: are boundaries explicit? When the LLM shouldn't do something, is that stated?
+
+For each structural issue, cite the specific section(s) of the prompt that exhibit the problem.
 
 ### Step 6: Convergence Assessment
 
@@ -106,7 +112,11 @@ Use the following structure, replacing all bracketed placeholders with your actu
 [CONVERGED | NEARLY CONVERGED | NEEDS WORK] — [one-sentence summary]
 
 ### Expectations Scorecard
-[Numbered list of expectations with ratings]
+
+| # | Expectation | Rating | Justification |
+|---|-------------|--------|---------------|
+| 1 | [expectation] | [SATISFIED/LIKELY/UNCERTAIN/UNLIKELY/MISSING] | [brief reason, quoting prompt passage for ratings below SATISFIED] |
+| ... | ... | ... | ... |
 
 ### Simulation Findings
 [Key issues discovered during LLM simulation, ordered by severity]
@@ -122,6 +132,8 @@ Each recommendation must:
 - Quote the specific passage to change
 - Provide concrete replacement text or addition
 - "Be more clear" is not a recommendation. "Change X to Y because Z" is.
+
+Every recommendation must propose a concrete text change. If no changes are needed, state that the prompt is well-constructed.
 ```
 
 If the verdict is CONVERGED, the Recommendations section should state: "No further changes recommended. The prompt reliably produces the expected output." Do not invent issues to fill space.
@@ -132,9 +144,14 @@ If the verdict is CONVERGED, the Recommendations section should state: "No furth
 **Expected output:** Accurate French translation of any English input.
 
 **Expectations:**
-1. Output is in French → **SATISFIED** (explicitly stated)
-2. Translation is accurate → **LIKELY** (LLMs translate well but no quality constraints are given, e.g., formal vs. informal register)
-3. Handles non-English input gracefully → **MISSING** (prompt assumes English input but doesn't say what to do with, e.g., Japanese input)
+
+| # | Expectation | Rating | Justification |
+|---|-------------|--------|---------------|
+| 1 | Output is in French | SATISFIED | Explicitly stated: "Translate... into French" |
+| 2 | Translation is accurate | LIKELY | LLMs translate well but no quality constraints given (formal vs. informal register) |
+| 3 | Handles non-English input gracefully | MISSING | Prompt assumes English input; no instruction for e.g. Japanese input |
+| 4 | Only translates text, not code/markup | MISSING | No boundary on what constitutes "the user's text" |
+| 5 | Preserves formatting and punctuation | LIKELY | LLMs usually preserve structure but no explicit instruction to do so |
 
 **Structural issue:** No edge case handling — **MEDIUM**. The prompt only describes the happy path (English → French).
 
