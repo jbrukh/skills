@@ -63,7 +63,7 @@ Go through the numbered expectation list one by one. For each, assign a severity
 
 Be honest. A rating of LIKELY is not the same as SATISFIED. The goal is deterministic, reliable output — anything less than SATISFIED is a gap.
 
-**Grounding requirement:** For any rating below SATISFIED, quote the passage (or note the absence of a passage) that justifies the rating.
+**Grounding requirement:** For any rating below SATISFIED, quote the passage (or note the absence of a passage) that justifies the rating. When quoting passages that contain markdown table syntax, describe the table in words rather than reproducing pipe-delimited syntax — literal pipes inside table cells will break the scorecard rendering.
 
 **Calibration examples:**
 - **SATISFIED**: The prompt says "output as JSON with keys: name, age, email" → format and structure are explicit.
@@ -103,6 +103,8 @@ This verdict enables iterative use: run this analysis, apply fixes, run again. W
 
 ### Step 7: Produce Recommendations
 
+**Always produce all sections of this template**, regardless of verdict. Even when the verdict is CONVERGED, include the full Expectations Scorecard table and all sections — only the Recommendations content is abbreviated.
+
 Use the following structure, replacing all bracketed placeholders with your actual analysis:
 
 ```
@@ -117,6 +119,8 @@ Use the following structure, replacing all bracketed placeholders with your actu
 |---|-------------|--------|---------------|
 | 1 | [expectation] | [SATISFIED/LIKELY/UNCERTAIN/UNLIKELY/MISSING] | [brief reason, quoting prompt passage for ratings below SATISFIED] |
 | ... | ... | ... | ... |
+
+Note: Never include literal pipe characters in cell content. Describe any table syntax in words.
 
 ### Simulation Findings
 [Key issues discovered during LLM simulation, ordered by severity]
