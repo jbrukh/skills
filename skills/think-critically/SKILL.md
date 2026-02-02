@@ -163,6 +163,7 @@ If the verdict is CONVERGED, the Recommendations section should state: "No furth
 - **Do NOT produce the expected output yourself.** You are evaluating whether the prompt would produce it, not producing it.
 - **Do NOT skip steps** even if the input is short or seems simple. A short prompt can have deep issues.
 - **Do NOT manufacture issues** to fill the template. If the prompt is well-constructed, say so honestly. A CONVERGED verdict is a valid outcome.
+- **Do NOT use literal pipe characters inside table cells.** When quoting prompt text that contains markdown table syntax, describe the table structure in words (e.g., "the scorecard table with columns for #, Expectation, Rating, and Justification") rather than reproducing pipe-delimited syntax. Literal pipes inside cells break table rendering.
 
 ## Key Principles
 
