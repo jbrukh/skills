@@ -1,3 +1,8 @@
+---
+name: prompt-calculus
+description: A minimal formalism for reasoning about LLM evaluations, prompt behavior, and prompt functions.
+---
+
 # Prompt Calculus
 
 A minimal formalism for reasoning about LLM evaluations, prompt behavior, and prompt functions.
