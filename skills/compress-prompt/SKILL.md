@@ -46,6 +46,8 @@ Bias: retain. When uncertain if load-bearing, keep it.
 
 Verify before output: enumerate every directive/constraint in P and confirm each has an explicit counterpart in P'. If any element cannot be mapped, restore it.
 
+Frontmatter preservation: If P begins with a YAML frontmatter block (delimited by `---`), reproduce it verbatim in P'. Frontmatter is metadata, not prompt content — never compress, modify, or omit it. The `description` field may be tightened if redundant with the body, but `name` and all other fields must be preserved exactly.
+
 Edge cases (both modes): return unchanged if incompressible. Prioritize retention over target when conflicting. Expect lower ratios for <30 token inputs.
 
 ### Output (lossless)
