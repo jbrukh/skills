@@ -1,5 +1,5 @@
 ---
-name: sharpen-output
+name: sharpen-prompt
 description: Take any user output — prompt, story, procedure, analysis — and make it maximally effective through iterative intent extraction and focused questioning.
 ---
 

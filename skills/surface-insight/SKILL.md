@@ -14,7 +14,7 @@ Take a collection of data points, observations, or notes and systematically appl
 - User has disparate information and wants to understand how pieces relate
 - User wants to reason about implications, predictions, or hidden dynamics
 
-Do NOT use for: summarizing (use sharpen-output), writing articles (use write-article), or evaluating prompts (use think-critically).
+Do NOT use for: summarizing (use sharpen-prompt), writing articles (use write-article), or evaluating prompts (use think-critically).
 
 ## Process
 

@@ -11,7 +11,7 @@ Walk through an existing article or set of bullet points one section at a time, 
 
 - User invokes `/improve-article`, asks to "improve this article," "make this better," "expand these bullets," "punch this up," or "help me strengthen this piece"
 - User has existing text (draft article, bullet points, rough notes) they want elevated
-- NOT for: writing from scratch when no existing text exists (use `/write-article`), or polishing a single paragraph or short passage that doesn't need section-by-section treatment (use `/sharpen-output`). **Boundary rule:** If the user provides fewer than 3 sentences or bullet points, suggest `/sharpen-output` instead. If the user provides only a topic with no existing text at all, suggest `/write-article` instead. If the user provides rough bullets or notes — even sparse ones — that represent their own thinking, proceed with `/improve-article`; the user has content, and this skill's job is to elevate it.
+- NOT for: writing from scratch when no existing text exists (use `/write-article`), or polishing a single paragraph or short passage that doesn't need section-by-section treatment (use `/sharpen-prompt`). **Boundary rule:** If the user provides fewer than 3 sentences or bullet points, suggest `/sharpen-prompt` instead. If the user provides only a topic with no existing text at all, suggest `/write-article` instead. If the user provides rough bullets or notes — even sparse ones — that represent their own thinking, proceed with `/improve-article`; the user has content, and this skill's job is to elevate it.
 
 ## Phase 1: Style & Context Intake
 
