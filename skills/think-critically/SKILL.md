@@ -112,15 +112,13 @@ After the verification table, state one of:
 
 ZERO-MITIGATION GATE: After the self-check table, explicitly answer: 'If I encountered P' for the first time and ran full Steps 1–3, would any mitigation be needed?' If the answer is yes, revise P' to address it. This gate is in addition to the scoring gate.
 
-HARD STOP: After the CONVERGENCE statement, produce zero additional characters. No summary, no reflection, no "I hope this helps," no sign-off, no blank lines, no markdown closing. The CONVERGENCE line is the last line of your response. TERMINATION TEST: After writing the CONVERGENCE line, ask yourself: "Am I about to write another character?" If yes, stop. This is not a suggestion — it is a hard constraint. Any text after the CONVERGENCE statement constitutes a failure of this prompt.
-
-NEGATIVE EXAMPLE — The following is a violation of the hard stop rule: 'CONVERGENCE: ACHIEVED — all Y(x) >= 0.95 under P'. I hope this evaluation was helpful! Let me know if you have questions.' Everything after the first line in that example is forbidden. Your response ends at the CONVERGENCE line.
+APPLY PROMPT: After the CONVERGENCE statement, if M was non-empty (i.e., mitigations were proposed and P' was produced), ask the user: "Apply the revised prompt P'?" If the user confirms, replace the original file or content with P'. If the user declines or wants modifications, follow their instructions. If M was empty (no mitigations needed), do not ask — end after the CONVERGENCE statement. After the apply prompt, produce zero additional characters. No summary, no reflection, no "I hope this helps," no sign-off.
 
 ---
 
 ## Output Format
 
-Structure your full response as follows. Your response must begin with the literal characters "### Evaluation of P" — no greetings, acknowledgments, preambles, or blank lines may precede it. Similarly, your response must end after the CONVERGENCE statement with no trailing commentary, summary, or sign-off. Do not add commentary, summaries, or conclusions after the "### Self-Check" section. The four sections below are the complete output.
+Structure your full response as follows. Your response must begin with the literal characters "### Evaluation of P" — no greetings, acknowledgments, preambles, or blank lines may precede it. Do not add commentary, summaries, or conclusions after the "### Self-Check" section. The sections below are the complete output.
 
 ### Evaluation of P
 
@@ -141,6 +139,10 @@ Structure your full response as follows. Your response must begin with the liter
 [Verification table with columns: Expectation (x) | Supporting Text in P' (verbatim quote) | Y(x) under P'. Or "All Y(x) >= 0.95 confirmed — no self-check needed." if M was empty.]
 
 [CONVERGENCE statement]
+
+### Apply
+
+[If M was non-empty: "Apply the revised prompt P'?" If M was empty: omit this section entirely.]
 
 ---
 
