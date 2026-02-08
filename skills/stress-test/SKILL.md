@@ -1,0 +1,199 @@
+---
+name: stress-test
+description: Adversarially test a thesis or take for differentiation, robustness, and blind spots. Prevents publishing consensus as contrarian and surfaces what would change your mind.
+---
+
+# Stress Test
+
+Take a thesis, take, or conviction and attack it. The goal is not to debunk — it's to find the load-bearing assumptions, test whether the take is genuinely differentiated, and surface the specific conditions under which it breaks. A take that survives stress-testing is worth publishing and acting on. One that doesn't was going to embarrass you eventually.
+
+## When to Use
+
+- User has a thesis, take, or prediction and wants to pressure-test it before publishing or acting
+- User asks "is this take actually good?" or "what am I missing?" or "stress test this"
+- User wants to know whether an insight is genuinely differentiated or just consensus
+- User has conviction and wants to find the strongest counterargument before someone else does
+
+Do NOT use for: generating insights from data (use surface-insight), evaluating prompts (use think-critically), or reframing problems (use mental-models).
+
+## The Adversarial Rule
+
+This skill's job is to find weaknesses. The single most important rule:
+
+- Every attack must reference the specific thesis the user provided — no generic objections
+- If an attack would apply equally to any take on any topic, it's filler — discard it
+- The test: "Would this specific objection surprise the person who holds this thesis?" If no, it's too obvious
+- Prefer attacks where the user's own evidence or framing contains the seed of the problem
+
+Honest stress-testing that finds nothing fatal is more valuable than performative skepticism that manufactures doubt. "This take is strong, here's the one thing to watch" is a valid output.
+
+## Process
+
+### Phase 1: Thesis Extraction (Silent)
+
+Read the user's input. Silently identify:
+- The core claim (what is actually being asserted?)
+- The implicit claims (what must also be true for the thesis to hold?)
+- The framing (how is the thesis positioned — as contrarian? obvious? urgent? inevitable?)
+- The evidence offered (what supports it, and what's suspiciously absent?)
+- The action it implies (what would someone do if they believed this?)
+
+Restate the thesis internally in its strongest form before attacking it. Steel-man first, then stress-test. Attacking a weak version is dishonest and useless.
+
+Do not output Phase 1.
+
+### Phase 2: Attack Discovery (Silent)
+
+Run the thesis through each Attack Vector below. Not as a checklist — start from the thesis and find where it's genuinely vulnerable, then use the attack vectors to name and structure what you find.
+
+For each vulnerability discovered, ask:
+1. Is this a fatal flaw, a meaningful weakness, or a cosmetic issue?
+2. Does it undermine the thesis itself, or just the way the thesis is framed?
+3. Can the user fix it by adjusting the thesis, or does it require abandoning it?
+
+Discard cosmetic issues. Keep fatal flaws and meaningful weaknesses.
+
+Do not output Phase 2.
+
+### Phase 3: Develop the Attacks
+
+For each vulnerability, develop the attack:
+
+1. **Name it** — What specific failure mode does this represent?
+2. **Ground it** — Quote or reference the specific element of the thesis you're attacking
+3. **Make the case** — Argue the counterposition as if you believe it. No hedging.
+4. **Assess severity** — Fatal (thesis falls apart), Serious (thesis needs major revision), or Moderate (thesis survives but with caveats)
+
+HARD RULE: Output exactly 3-5 attacks. If you find more than 5, keep the 5 most damaging. If you find fewer than 3 genuine vulnerabilities, say so — "This thesis is unusually robust; here are the 2 real risks" is honest. Never pad with weak attacks to hit a number.
+
+QUALITY GATE: Before presenting each attack, ask: "If the user shared their thesis publicly and a smart, informed critic responded, would this attack be the one that makes them wish they'd thought harder?" If no, sharpen it or discard it.
+
+### Phase 4: Output
+
+Present attacks ordered by severity (most damaging first).
+
+**Output format:**
+
+```
+## Stress Test: [one-line restatement of thesis in its strongest form]
+
+### [Attack Name]
+
+**Severity:** [fatal | serious | moderate]
+
+**The claim:** [quote or cite the specific part of the thesis being attacked]
+
+[2-4 sentences: the counterargument, stated with conviction. Every sentence must reference something concrete — a named entity, a market signal, a historical precedent, a logical contradiction, a specific mechanism. No sentence may consist entirely of abstract skepticism.]
+
+**What it would take:** [1 sentence: what specific evidence or development would resolve this vulnerability in the thesis's favor]
+```
+
+After all attacks, output the Verdict and Kill Question sections (see below).
+
+## Attack Vectors
+
+Use these to find and articulate vulnerabilities — not as a checklist to generate attacks.
+
+### Differentiation
+
+- **Consensus Camouflage.** The thesis feels contrarian but is actually what most informed people already believe. Test: search for who else is saying this. If Twitter, VC blogs, and mainstream media already agree, it's not alpha — it's a mood.
+- **Audience Capture.** The thesis tells the user's audience exactly what they want to hear. Takes that flatter your followers are the most dangerous because the engagement validates the conviction.
+- **Recency Bias.** The thesis is driven by whatever happened in the last 2 weeks. Test: would you have made this claim 3 months ago? If not, what changed — and is that change durable or a news cycle?
+
+### Logic & Evidence
+
+- **Missing Mechanism.** The thesis predicts an outcome but doesn't explain the causal chain. "X will happen" without "because Y will cause Z which leads to X" is a vibe, not an argument.
+- **Survivorship Bias.** The evidence cited is selected from successes. What about the failures? If the thesis is "AI companies that focus on integration win," how many focused on integration and failed?
+- **Unfalsifiability.** There is no evidence that would cause the thesis-holder to abandon it. If the thesis absorbs all counterevidence ("the market just doesn't understand yet"), it's faith, not analysis.
+- **Conflation.** The thesis treats two different things as one. Common form: conflating "this technology works" with "this technology will be adopted" or "this is true" with "this is investable."
+
+### Timing & Context
+
+- **Right Church, Wrong Pew.** The thesis is directionally correct but the timing or magnitude is wrong. Being 5 years early on a trend is economically identical to being wrong.
+- **Base Rate Neglect.** The thesis treats a likely-sounding scenario as certain without considering the base rate of similar predictions. Most "this changes everything" claims don't pan out, even when the underlying technology is real.
+- **Regime Dependence.** The thesis is true under current conditions but those conditions are fragile. What regulatory change, market crash, or technical failure would invalidate it?
+
+### Framing & Positioning
+
+- **Motte and Bailey.** The thesis oscillates between a strong, exciting claim (the bailey) and a weak, defensible one (the motte). When challenged, it retreats to the motte; when unchallenged, it advances to the bailey. Identify which version the user actually believes.
+- **Framing as Substance.** The thesis feels like it says something but is actually about framing, not about the world. Test: does this thesis make a prediction? If not, it's a narrative, not a claim.
+- **The Underpants Gnome.** Step 1: [observation]. Step 2: ???. Step 3: [conclusion]. The thesis jumps from a real observation to a conclusion with a missing middle step.
+
+---
+
+## Verdict
+
+After the attacks, deliver one of four verdicts. Be direct.
+
+- **Strong** — The thesis survives stress-testing with only moderate vulnerabilities. Worth publishing and acting on. State what minor adjustments would make it bulletproof.
+- **Promising but exposed** — The thesis has a real insight at its core but has serious vulnerabilities that need addressing before it's ready. State what specific revision would fix it.
+- **Reframe needed** — The thesis as stated doesn't hold, but there's a better version hiding inside it. State what that better version is.
+- **Abandon** — The thesis has a fatal flaw. Say so clearly and say why. Not every take deserves to be rescued.
+
+Format:
+
+```
+## Verdict: [Strong | Promising but exposed | Reframe needed | Abandon]
+
+[2-3 sentences: the verdict explained, referencing the specific attacks that drive it. If the thesis is worth keeping, state the exact revision that would strengthen it.]
+```
+
+---
+
+## Kill Question
+
+End with a single question — the one question that, if the user can answer it convincingly, confirms the thesis holds. If they can't, the thesis is in trouble.
+
+This should be the hardest, most specific question you can construct from the vulnerabilities you found. Not "are you sure?" but "if the bottleneck is really integration not capability, why are the integration-focused AI startups from 2023 not dominant yet?"
+
+Format:
+
+```
+## Kill Question
+
+[A single, specific, answerable question that tests the thesis at its weakest point]
+```
+
+---
+
+## Quality Standards
+
+The quality bar is the **wince test**: does the attack make the thesis-holder uncomfortable because it hits a real nerve, not because it's unfair?
+
+- **Fail — Generic skepticism.** "But what if you're wrong?" REJECT.
+- **Fail — Straw man.** Attacking a weak version of the thesis. REJECT.
+- **Pass — Specific counterargument.** An objection that requires the thesis-holder to think. MINIMUM.
+- **Good — Evidence-based attack.** Uses real-world data, precedents, or logical structure to expose a flaw.
+- **Strong — Internal contradiction.** Shows that the thesis's own evidence or framing undermines it.
+- **Exceptional — Reframe attack.** Shows that the entire frame of the thesis is wrong, not just the conclusion.
+
+Aim for "Good" or above on at least half of attacks. Never output "Fail" level.
+
+---
+
+## Anti-Patterns
+
+- **Performative skepticism.** Being contrarian for the sake of balance. If the thesis is strong, say so — then find the one real risk.
+- **Generic objections.** "But markets are unpredictable" applies to everything and therefore says nothing.
+- **Tone-policing as analysis.** "The thesis is too confident" is not an attack on the thesis — it's an attack on the tone. Address the substance.
+- **The false balance.** Manufacturing 5 attacks when only 2 are real. Three strong attacks beat five where two are padding.
+- **Rehashing the thesis.** Spending paragraphs restating the thesis before attacking it. Get to the attack.
+- **Hedged attacks.** "One could argue that perhaps..." — commit to the counterargument or drop it. An attack that hedges isn't an attack.
+- **Applause-line objections.** Objections that sound smart in the abstract but don't connect to this specific thesis. Test: remove the thesis-specific nouns — does the attack still make sense? If yes, it's generic.
+
+---
+
+## Key Principles
+
+1. **Steel-man first, then attack.** Restate the thesis in its strongest form before finding weaknesses. Attacking straw men is dishonest.
+2. **Specific, not skeptical.** Every attack must name a concrete mechanism, precedent, data point, or logical flaw. Generic doubt is worthless.
+3. **Severity matters.** Distinguish between "this thesis is wrong" and "this thesis is right but incomplete." The user needs to know which attacks are cosmetic and which are structural.
+4. **The kill question is the product.** The single most valuable output is the question that crystallizes the thesis's central vulnerability into something the user can investigate and resolve.
+5. **Honest verdicts.** "This is strong" is as valuable as "abandon this." The skill's credibility depends on not manufacturing doubt where none exists.
+6. **Attacks that improve.** The best stress test doesn't just find problems — it points toward the stronger version of the thesis. Even fatal flaws should suggest what the user should think instead.
+
+---
+
+## Input
+
+[User provides a thesis, take, prediction, or conviction below]
