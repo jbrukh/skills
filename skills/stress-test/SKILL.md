@@ -21,6 +21,7 @@ Do NOT use for: generating insights from data (use surface-insight), evaluating 
 This skill's job is to find weaknesses. The single most important rule:
 
 - Every attack must reference the specific thesis the user provided — no generic objections
+- ENFORCEMENT: Every attack in the output must contain a verbatim quote from the user's thesis in the "The claim" field. If you cannot quote the thesis directly, the attack is not specific enough — discard it.
 - If an attack would apply equally to any take on any topic, it's filler — discard it
 - The test: "Would this specific objection surprise the person who holds this thesis?" If no, it's too obvious
 - Prefer attacks where the user's own evidence or framing contains the seed of the problem
@@ -40,7 +41,7 @@ Read the user's input. Silently identify:
 
 Restate the thesis internally in its strongest form before attacking it. Steel-man first, then stress-test. Attacking a weak version is dishonest and useless.
 
-Do not output Phase 1.
+FIRST-TOKEN RULE: Your output must begin with the literal characters "## Stress Test:" — no thinking, analysis, phase output, or preamble may precede this. Phase 1 and Phase 2 are internal reasoning only. If any text from Phase 1 or Phase 2 appears in your output, you have violated this constraint.
 
 ### Phase 2: Attack Discovery (Silent)
 
@@ -53,7 +54,7 @@ For each vulnerability discovered, ask:
 
 Discard cosmetic issues. Keep fatal flaws and meaningful weaknesses.
 
-Do not output Phase 2.
+FIRST-TOKEN RULE (repeated): Your output must begin with "## Stress Test:" — Phase 2 is internal reasoning only and must not appear in your output.
 
 ### Phase 3: Develop the Attacks
 
@@ -66,9 +67,13 @@ For each vulnerability, develop the attack:
 
 HARD RULE: Output exactly 3-5 attacks. If you find more than 5, keep the 5 most damaging. If you find fewer than 3 genuine vulnerabilities, say so — "This thesis is unusually robust; here are the 2 real risks" is honest. Never pad with weak attacks to hit a number.
 
-QUALITY GATE: Before presenting each attack, ask: "If the user shared their thesis publicly and a smart, informed critic responded, would this attack be the one that makes them wish they'd thought harder?" If no, sharpen it or discard it.
+STRONG THESIS PROTOCOL: If after genuine adversarial analysis you find fewer than 3 vulnerabilities above "cosmetic" level, output only the vulnerabilities you found — even if that's 1 or 0. In this case, add a "## Strengths" section before the Verdict listing 2-3 specific reasons the thesis is robust, referencing which attack vectors it survived and why. Do not manufacture attacks to fill a quota. A verdict of "Strong" with 1-2 moderate attacks is a legitimate and valuable output.
+
+QUALITY GATE: After drafting all attacks, re-read each one and apply this test: "If the user shared their thesis publicly and a smart, informed critic responded, would this attack be the one that makes them wish they'd thought harder?" If no, delete the attack entirely — do not attempt to sharpen a fundamentally weak attack. It is better to output 2 genuine attacks than 4 where half are padding. The honest count matters more than hitting the range.
 
 ### Phase 4: Output
+
+HARD CONSTRAINT: Your output must begin with the "## Stress Test:" header followed immediately by the first attack. No introductory paragraphs, context-setting, or thesis analysis may appear before the first attack. The one-line restatement in the header is the only permitted restatement of the thesis.
 
 Present attacks ordered by severity (most damaging first).
 
@@ -81,7 +86,7 @@ Present attacks ordered by severity (most damaging first).
 
 **Severity:** [fatal | serious | moderate]
 
-**The claim:** [quote or cite the specific part of the thesis being attacked]
+**The claim:** [verbatim quote from the user's thesis being attacked]
 
 [2-4 sentences: the counterargument, stated with conviction. Every sentence must reference something concrete — a named entity, a market signal, a historical precedent, a logical contradiction, a specific mechanism. No sentence may consist entirely of abstract skepticism.]
 
@@ -130,6 +135,8 @@ After the attacks, deliver one of four verdicts. Be direct.
 - **Reframe needed** — The thesis as stated doesn't hold, but there's a better version hiding inside it. State what that better version is.
 - **Abandon** — The thesis has a fatal flaw. Say so clearly and say why. Not every take deserves to be rescued.
 
+CALIBRATION CHECK: Before selecting a verdict, ask: "If I had not just spent the entire prompt looking for flaws, would I still assign this verdict?" The adversarial process can inflate perceived severity. Weight the verdict on the actual severity ratings of your attacks: if no attack is rated fatal and at most one is serious, the verdict should be Strong or Promising but exposed, not Reframe needed or Abandon.
+
 Format:
 
 ```
@@ -144,7 +151,7 @@ Format:
 
 End with a single question — the one question that, if the user can answer it convincingly, confirms the thesis holds. If they can't, the thesis is in trouble.
 
-This should be the hardest, most specific question you can construct from the vulnerabilities you found. Not "are you sure?" but "if the bottleneck is really integration not capability, why are the integration-focused AI startups from 2023 not dominant yet?"
+This should be the hardest, most specific question you can construct from the vulnerabilities you found. Not "are you sure?" but "if the bottleneck is really integration not capability, why are the integration-focused AI startups from 2023 not dominant yet?" The Kill Question must be a single question — not a compound question with "and" or multiple clauses. One sentence, one question mark.
 
 Format:
 
