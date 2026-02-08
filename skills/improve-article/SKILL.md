@@ -11,7 +11,7 @@ Walk through an existing article or set of bullet points one section at a time, 
 
 - User invokes `/improve-article`, asks to "improve this article," "make this better," "expand these bullets," "punch this up," or "help me strengthen this piece"
 - User has existing text (draft article, bullet points, rough notes) they want elevated
-- NOT for: writing from scratch (use `/write-article`), general-purpose sharpening of short text (use `/sharpen-output`)
+- NOT for: writing from scratch when no existing text exists (use `/write-article`), or polishing a single paragraph or short passage that doesn't need section-by-section treatment (use `/sharpen-output`). **Boundary rule:** If the user provides fewer than 3 sentences or bullet points, suggest `/sharpen-output` instead. If the user provides only a topic with no existing text at all, suggest `/write-article` instead. If the user provides rough bullets or notes — even sparse ones — that represent their own thinking, proceed with `/improve-article`; the user has content, and this skill's job is to elevate it.
 
 ## Phase 1: Style & Context Intake
 
@@ -28,7 +28,7 @@ Before touching a single word, gather context. Ask the following in **one conver
 
 Do not output this phase to the user. Perform silently:
 
-1. **Detect input type.** Bullets, rough notes, or formed prose? This determines how much structure you need to add vs. preserve.
+1. **Detect input type.** Bullets, rough notes, or formed prose? This determines how much structure you need to add vs. preserve. For bullets or rough notes: the rewrite phase must build connective tissue — paragraph structure, transitions, and logical flow that do not yet exist. Treat each bullet as a thesis seed that needs argument scaffolding. For formed prose: preserve existing paragraph structure and transitions; focus rewrites on sharpening argument, increasing specificity, and strengthening style. Do not restructure prose that already flows unless the arc check in step 4 reveals a momentum problem.
 2. **Segment into 4–8 sections.** For bullets: group by theme. For prose: identify natural paragraph clusters. Each section should represent one coherent idea unit.
 3. **Pre-identify per section:**
    - What the section currently argues or conveys
