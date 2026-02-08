@@ -118,11 +118,11 @@ Every paragraph must create forward momentum: raising a question the next answer
 - No throat-clearing paragraph openings. Get to the point.
 - No closing call to action or self-promotion.
 - No exclamation marks.
-- **No dashes. Never, under any circumstances, use dashes of any type, kind, or sort in article output.** No em dashes, no en dashes, no spaced hyphens used as dashes. Use commas, semicolons, colons, parentheses, or periods instead. This is absolute and non-negotiable. After drafting, scan the text for any occurrence of "—", "–", or " - " (spaced hyphen) and replace every instance. Hyphens in compound words (e.g., "open-source," "high-end") are fine; dashes used as punctuation are banned.
+- **No dashes. Never, under any circumstances, use dashes of any type, kind, or sort in article output.** No em dash characters, no en dash characters, no spaced hyphens used as dashes. Use commas, semicolons, colons, parentheses, or periods instead. This is absolute and non-negotiable. Hyphens in compound words (e.g., "open-source," "high-end") are fine; dashes used as punctuation are banned.
 - Never use "delve," "utilize," "landscape" (as metaphor), "paradigm," "ecosystem" (unless literal), "leverage" (as verb), "robust," or "seamless."
 - No padding with repetition. Point made → move on.
 - **Self-check after drafting:** Reread every sentence. If any sentence could appear unchanged in a generic article about a different topic, rewrite it with a specific detail from the user's input that anchors it to this article only.
-- **Literal grep:** After drafting, scan the text for every word in the banned list above. If any appears, replace it. This is not optional.
+- **Literal grep:** After drafting, scan the text for every word in the banned list above and for any dash characters used as punctuation. If any banned word or dash appears, replace it. This is not optional.
 
 ## Process
 
@@ -155,7 +155,13 @@ After drafting, perform a sentence-level voice pass:
    - AI-generic: "Several companies are working on decentralized training. For example, Prime Intellect has developed a platform that allows distributed GPU training. Another notable project is Nous Research, which focuses on open-source model development."
    - Brukhman voice: "Prime Intellect's INTELLECT-1 proved the concept last year: 10 billion parameters trained across commodity hardware scattered across three continents, with no centralized cluster in sight. Nous Research pushed the boundary further by demonstrating that the same distributed fabric could fine-tune models for domain-specific tasks at a fraction of the usual cost."
    - What changed: companies became sentence subjects doing things, not items in a list. Specifics replaced vagueness. Each sentence advanced the argument rather than cataloging players.
-5. **The specificity ratio:** Count the concrete nouns (company names, product names, numbers, dates, technical terms) in each paragraph. If fewer than 3 per paragraph in Beats 1, 3, 4, 6, the paragraph is too abstract. Abstract paragraphs read as AI-generated because they could apply to anything. Add specifics until the paragraph is anchored to this article's unique subject matter.
+5. **Dash elimination.** Dashes are banned from all article output. When the natural impulse is to reach for a dash, use the appropriate substitute:
+   - For elaboration or explanation, use a colon: "Prime Intellect proved the concept last year: 10 billion parameters trained across three continents."
+   - For appositives and asides, use commas or parentheses: "Frontier AI (the most advanced systems currently in development) is becoming strategically important."
+   - For contrast or pivot, use a comma: "Meta's release of LLaMA restructured competitive dynamics, not because the weights were extraordinary, but because they eliminated the moat of access."
+   - For joining related independent clauses, use a semicolon: "The anchors are not background context; they are the target register."
+   - For emphasis or abrupt shift, use a period and start a new sentence: "This is the equivalent of going from proprietary mainframes to open-source Linux. Not better hardware, but a different ownership model."
+6. **The specificity ratio:** Count the concrete nouns (company names, product names, numbers, dates, technical terms) in each paragraph. If fewer than 3 per paragraph in Beats 1, 3, 4, 6, the paragraph is too abstract. Abstract paragraphs read as AI-generated because they could apply to anything. Add specifics until the paragraph is anchored to this article's unique subject matter.
 
 ## Key Principles
 
