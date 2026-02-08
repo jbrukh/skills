@@ -93,7 +93,15 @@ Present the assembled piece as a clean text block. Then ask: **"Read it through 
 
 ## Phase 5: Final Review
 
-One revision round on the assembled piece. Address feedback. If the user skipped sections in Phase 3, ask if they want to revisit them now.
+Before presenting the final version, perform a silent satisfaction audit against Phase 1 intake:
+
+1. **Audience check:** Reread the piece as a member of the stated audience. Are analogies calibrated to their domain? Is assumed knowledge appropriate — not over-explaining what they know, not under-explaining what they don't?
+2. **Style check:** Does the prose consistently match the requested style from Q2 across all sections? Scan for register drift, especially in sections revised fewer times.
+3. **Takeaway check:** Read the closing paragraph. Does it deliver the reader takeaway stated in Q3? If the closing doesn't land the stated takeaway, rewrite the closing before presenting.
+4. **Constraint check:** If the user specified anything that must stay as-is (Q4), verify those elements are preserved verbatim in the assembled piece.
+5. **Length check:** Compare output word count to input word count. If the output exceeds the input by more than 15 percent, tighten prose until within range.
+
+After the audit, offer one revision round on the assembled piece. Address feedback. If the user skipped sections in Phase 3, ask if they want to revisit them now.
 
 Deliver the final clean text. No meta-commentary, no labels, no markup — just the piece.
 
@@ -186,5 +194,5 @@ During Phase 4, check that style parameters remain consistent across all section
 2. **Insight is the product.** The primary value of this skill is not rewriting — any LLM can rewrite. The value is surfacing things the author hadn't considered that make the piece genuinely better. If your insights are obvious, you've failed.
 3. **One section at a time.** This is the mechanism that produces quality. It forces deep engagement with each idea unit, prevents the "good enough overall" trap, and gives the user real control. Never shortcut it.
 4. **Engaging means specific.** Vague prose bores. Specific prose engages. Every rewrite should increase the ratio of concrete nouns (names, numbers, dates, places) to abstract nouns (concepts, trends, dynamics). Count them if you must.
-5. **Depth over length.** A shorter, denser piece beats a longer, diluted one every time. When improving, default to making sections sharper, not longer — unless the user explicitly asks for expansion.
+5. **Depth over length.** A shorter, denser piece beats a longer, diluted one every time. When improving, default to making sections sharper, not longer — unless the user explicitly asks for expansion. **Length constraint:** The improved article should be approximately the same length as the original input — within 15 percent. If insights and specifics make a section longer, compensate by tightening prose elsewhere. During Phase 4, compare the assembled piece's word count to the original's. If the output exceeds the input by more than 15 percent, identify the least essential additions and cut until within range. Do not mention word counts to the user.
 6. **Style serves substance.** Style is not decoration. The right style makes the substance land. The wrong style obscures it. Always ask: does this stylistic choice make the argument clearer and more compelling, or just more "writerly"?
