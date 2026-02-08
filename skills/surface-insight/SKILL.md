@@ -1,11 +1,11 @@
 ---
 name: surface-insight
-description: Take data, observations, or notes and systematically apply reasoning patterns to surface non-obvious insights — connections, predictions, hidden dynamics, and structural truths invisible from any single data point.
+description: Take data, observations, or notes and surface non-obvious insights that click into place — connections, dynamics, and structural truths that were hiding in the data all along.
 ---
 
 # Surface Insight
 
-Take a collection of data points, observations, or notes and systematically apply reasoning lenses to surface non-obvious insights — connections, predictions, hidden dynamics, and structural truths that aren't visible from any single data point alone.
+Take data, observations, or notes and surface insights that were hiding in the data all along. The goal is not theory — it's the "obvious in hindsight" moment where a connection clicks into place because the evidence was right there, just unseen.
 
 ## When to Use
 
@@ -16,164 +16,149 @@ Take a collection of data points, observations, or notes and systematically appl
 
 Do NOT use for: summarizing (use sharpen-prompt), writing articles (use write-article), or evaluating prompts (use think-critically).
 
+## The Grounding Rule
+
+Every insight must be **rooted in the user's actual data**. This is the single most important rule:
+
+- Every insight must cite or quote specific data points the user provided
+- If you cannot point to concrete evidence in the input, the insight is theory — discard it
+- The test: "Could someone verify this insight by re-reading the user's data?" If no, it fails
+- Prefer insights where the evidence is *already present* but the connection is *not yet drawn*
+
+An insight that is well-grounded but modest beats a spectacular insight with no evidentiary anchor.
+
 ## Process
 
 ### Phase 1: Intake (Silent)
 
 Read the user's data. Silently identify:
-- The domain(s) involved (tech, markets, culture, policy, etc.)
-- The entities and actors mentioned
-- The time horizon (past, present, future)
+- What's surprising, anomalous, or unexplained in the data
+- What data points seem unrelated but might not be
+- What's conspicuously absent given what is present
 - Implicit assumptions or framing the user may have
 
 Do not output Phase 1.
 
-### Phase 2: Pattern Scan (Silent)
+### Phase 2: Data-First Discovery (Silent)
 
-Run through the Reasoning Lenses below. For each lens, ask: "Does applying this lens to the data yield something the user probably hasn't seen?" Discard any lens that produces only obvious or trivial observations.
+**Do NOT start from the lenses.** Start from the data:
 
-Select the **3–7 most productive lenses** for this specific data set. Quality over quantity — fewer strong insights beat many weak ones.
+1. Find the 3-7 most interesting tensions, anomalies, or unexplained connections in the data
+2. For each, ask: "What would make this click into place?"
+3. Only then check the Reasoning Lenses below to find vocabulary and structure for what you already found
+
+The lenses are a toolkit for articulating insights, not a checklist for generating them. If a lens doesn't illuminate something already in the data, skip it.
 
 Do not output Phase 2.
 
-### Phase 3: Insight Generation
+### Phase 3: Insight Development
 
-For each selected lens, develop the insight fully:
+For each discovery, develop the insight:
 
-1. **Name the pattern** — State which lens you're applying
-2. **Show the connection** — Identify which specific data points you're linking and how
-3. **Articulate the insight** — State the non-obvious conclusion clearly and concretely
-4. **Give the reasoning chain** — Show the logical steps so the reader can evaluate the argument
-5. **Assess confidence** — Flag whether this is speculative, plausible, or well-supported
+1. **Ground it** — Quote or cite the specific data points you're connecting
+2. **Name the connection** — State the non-obvious relationship clearly
+3. **Show why it clicks** — Walk through the reasoning so the reader can verify it against the data
+4. **Assess confidence** — Speculative, plausible, or well-supported
 
-Reject any insight below Level 3 on the Quality Hierarchy (see below).
+HARD RULE: Output exactly 3-7 insights. If you find yourself generating an 8th, discard the weakest. Three strong insights beat seven mediocre ones.
 
-HARD RULE: Output exactly 3–7 insights, one per selected lens. If you find yourself generating an 8th insight, stop and discard the weakest one. Count your output sections before presenting.
+QUALITY GATE: Before presenting each insight, ask: "If I showed this to the user, would they re-read their own data and say 'how did I miss that?'" If no, discard it.
 
-QUALITY GATE: Before presenting each insight, verify: "Would a knowledgeable person in this domain find this non-obvious?" If the answer is no, discard it and attempt the next lens.
+### Phase 4: Output
 
-### Phase 4: Synthesis & Output
+Present insights ordered by click-factor (strongest "obvious in hindsight" first).
 
-Present insights ordered by non-obviousness x importance. After presenting individual insights, look across them for **meta-insights** — do the individual insights themselves form a pattern? If so, surface that as a final synthesis.
-
-**Output format for each insight:**
+**Output format:**
 
 ```
-### [Lens Name]: [Insight Title]
+### [Insight Title]
 
-**Connecting:** [which data points are being linked]
+**From the data:** [quote or cite the specific data points being connected]
 
-[2–4 sentences: the insight and reasoning chain. Must include at least one specific noun (a named entity, a number, a mechanism, or a concrete outcome) — no sentence may consist entirely of abstract generalities.]
+[2-4 sentences: the insight and reasoning chain. Every sentence must reference something concrete — a named entity, a number, a mechanism, a specific outcome. No sentence may consist entirely of abstract generalities.]
 
 **Confidence:** [speculative | plausible | well-supported]
 ```
 
-End with a `## Synthesis` section if a meta-pattern emerges across insights. A meta-pattern means: two or more individual insights reinforce, tension, or compound each other — producing a higher-order conclusion that none of them states alone. If no such pattern exists, omit the section entirely rather than forcing one.
+End with a `## Synthesis` section only if the individual insights compound into a higher-order conclusion none of them states alone. If no such pattern exists, omit entirely rather than forcing one.
 
-ANTI-PATTERN CHECK: Before presenting your final output, scan each insight against the Anti-Patterns list below. If any insight exhibits a listed anti-pattern, revise or discard it. Do not present output without completing this check.
+ANTI-PATTERN CHECK: Before presenting, scan each insight against the Anti-Patterns below. Revise or discard any that fail.
 
 ---
 
 ## Reasoning Lenses
 
-### Lens 1: Connect — Find hidden links
+Use these as vocabulary for insights you've already found in the data — not as a generation checklist.
 
-**Convergence Detection.** Multiple independent trends are heading toward the same collision point. Any single trend is interesting; their intersection is where discontinuous change happens.
-*Core move: "These unrelated developments all point toward X."*
+### Connect — Find hidden links
 
-**Cross-Impact Analysis.** Variable A affects Variable B in a non-obvious way — often through a mediating mechanism not visible in the data.
-*Core move: "Changing A doesn't just affect A; it cascades into B because of mechanism M."*
+- **Convergence.** Independent developments heading toward the same collision point.
+- **Cross-Impact.** A affects B through a mediating mechanism not visible on the surface.
+- **Triangulation.** Multiple independent signals pointing to the same conclusion.
 
-**Triangulation.** Multiple independent signals point to the same conclusion. One signal is noise; three independent signals are a pattern.
-*Core move: "Sources X, Y, and Z all independently suggest the same thing."*
+### Project — Extend data through time
 
-### Lens 2: Project — Extend data through time
+- **Extrapolation.** Current trends projected forward to a concrete prediction.
+- **Rate-of-Change.** The velocity or acceleration of a metric is itself the signal (e.g., still growing but decelerating).
+- **Regime Change.** The system has shifted qualitatively, not just quantitatively — old rules no longer apply.
+- **Temporal Displacement.** What's newly possible (or impossible) because conditions changed?
 
-**Extrapolation.** Project current trends forward and draw a prediction, estimate, or educated guess about where things are heading.
-*Core move: "If this continues, then by [time], we should expect [outcome]."*
+### Explain — Build and test causal stories
 
-**Rate-of-Change Analysis.** Look at velocity (is the metric accelerating or decelerating?) and acceleration (is the rate of change itself changing?). A positive metric with negative acceleration is about to turn.
-*Core move: "The number is still going up, but it's going up slower — the inflection is coming."*
+- **Abductive Reasoning.** If A and B are both true, the best explanation is H — and here's evidence for H.
+- **Retroduction.** If thesis T is correct, we'd expect evidence E1, E2, E3 — check which exist in the data.
+- **Counterfactual.** Remove X from the picture — does the outcome still hold? If yes, X wasn't causal.
 
-**Regime Change Detection.** The system isn't just changing quantitatively; it has shifted to a qualitatively different state. Old rules no longer apply.
-*Core move: "This isn't a fluctuation within the old regime — the regime itself has changed."*
+### Reframe — See from a different angle
 
-**Temporal Displacement.** Ask: what's true now that wasn't true 2/5/10 years ago? What enabling conditions have appeared that make something newly possible or newly impossible?
-*Core move: "This is viable now because conditions X, Y, Z didn't exist before."*
+- **Analogy.** Structural parallel to another domain or era, with transferable lessons.
+- **Disanalogy.** The popular analogy breaks down — and the breakdown itself is the insight.
+- **Inversion.** Flip the question to reveal blind spots.
+- **Dialectical Synthesis.** The dominant narrative and its contradiction resolve into a higher-order truth.
 
-### Lens 3: Explain — Build and test causal stories
+### Reveal — Expose hidden structures
 
-**Abductive Reasoning.** Hypothesize how different pieces of data work together as a system, then look for supporting evidence.
-*Core move: "If A and B are both true, the best explanation is H — and here's evidence for H."*
-
-**Retroduction.** Start from a hypothetical outcome. If it were true, what evidence would we expect to see? Then check if that evidence exists in the data.
-*Core move: "If thesis T is correct, we'd expect to see E1, E2, E3 — and we do see E1 and E2."*
-
-**Counterfactual Reasoning.** Ask "what if X had not happened?" to isolate what actually caused an observed outcome. Separates genuine causation from correlation and luck.
-*Core move: "Remove X from the picture — does the outcome still hold? If yes, X wasn't causal."*
-
-### Lens 4: Reframe — See from a different angle
-
-**Analogical Reasoning.** Draw a useful parallel between what happened in another domain or era and what's happening now. Transfer the lessons.
-*Core move: "This situation is structurally similar to [parallel], which implies [lesson]."*
-
-**Disanalogy Analysis.** Identify the analogy everyone is reaching for and show specifically why it breaks down. The failure of an analogy is itself an insight.
-*Core move: "Everyone says this is like X, but the key difference is Y, which means the outcome will diverge."*
-
-**Inversion.** Flip the question. Instead of "how does this succeed?" ask "how does this fail?" Instead of "what does the data show?" ask "what would the data look like if the opposite were true?"
-*Core move: "Instead of asking Q, ask the inverse — and the answer reveals blind spots."*
-
-**Dialectical Synthesis.** Take the dominant narrative (thesis) and its strongest contradiction (antithesis). Find the higher-order truth that transcends both.
-*Core move: "View A says X, View B says Y, but the deeper truth is Z which reconciles both."*
-
-### Lens 5: Reveal — Expose hidden structures
-
-**Second-Order Effects.** Trace downstream consequences beyond the obvious first-order impact. Ask "and then what?" recursively. Non-obvious insights live in the second and third order.
-*Core move: "The first-order effect is obvious, but the second-order effect is [surprising consequence]."*
-
-**Cui Bono / Incentive Mapping.** For any observed behavior, ask "who benefits?" Map the incentive structures. Puzzling behavior is often perfectly rational when you see the incentive landscape.
-*Core move: "This seems irrational until you realize that actor A benefits because [hidden incentive]."*
-
-**Absence of Evidence (The Dog That Didn't Bark).** Note what is conspicuously missing from the data. The absence of an expected signal is itself a signal.
-*Core move: "If X were true, we'd expect to see Y — but Y is absent, which tells us something."*
-
-**Constraint Identification.** Identify the binding constraint that limits the entire system. Optimizing anything other than the bottleneck is waste.
-*Core move: "Everyone is focused on improving A, but B is the bottleneck — nothing improves until B does."*
+- **Second-Order Effects.** The first-order impact is obvious; the second-order consequence is not.
+- **Incentive Mapping.** Puzzling behavior becomes rational when you see who benefits.
+- **The Dog That Didn't Bark.** The absence of an expected signal is itself a signal.
+- **Constraint Identification.** The binding bottleneck that limits the entire system.
 
 ---
 
-## Insight Quality Hierarchy
+## Insight Quality
 
-- **Level 1 — Restatement.** Rephrasing a data point in different words. **REJECT.**
-- **Level 2 — Obvious implication.** Something anyone would see from the data. **REJECT.**
-- **Level 3 — Non-obvious connection.** Linking two data points that aren't obviously related. **MINIMUM THRESHOLD.**
-- **Level 4 — Hidden dynamic.** Revealing a mechanism, feedback loop, or causal chain not visible on the surface. **GOOD.**
-- **Level 5 — Assumption inversion.** Overturning a default assumption or conventional wisdom with evidence from the data. **VERY GOOD.**
-- **Level 6 — Structural truth.** Revealing a deep pattern that reframes the entire dataset and changes how you think about all the individual data points. **EXCEPTIONAL.**
+The quality bar is the **click test**: does the insight make the reader re-examine the data and say "of course — how did I miss that?"
 
-Aim for Level 4+ on at least half of generated insights. Never output Level 1 or Level 2.
+- **Fail — Restatement.** Rephrasing a data point. REJECT.
+- **Fail — Obvious.** Something anyone would see. REJECT.
+- **Pass — Non-obvious connection.** Linking data points that aren't obviously related. MINIMUM.
+- **Good — Hidden dynamic.** Revealing a mechanism or feedback loop not visible on the surface.
+- **Strong — Assumption inversion.** Overturning a default assumption with evidence from the data.
+- **Exceptional — Structural truth.** Reframing the entire dataset.
+
+Aim for "Good" or above on at least half of insights. Never output "Fail" level.
 
 ---
 
 ## Anti-Patterns
 
-- **Forced connections.** Do not strain to connect data points that are genuinely unrelated. Saying "no strong insight here" is better than fabricating one.
-- **Vague gesturing.** "This could have major implications" without specifying what those implications are. Every insight must be concrete and specific.
-- **Prediction without mechanism.** "X will happen" without explaining the causal chain. Always show why.
-- **False equivalence.** Treating all data points as equally significant. Some are noise; acknowledge that.
-- **Pattern over-fitting.** Seeing patterns that aren't there because you're motivated to find them. Apply the "would I believe this if I hadn't been looking for it?" test.
-- **Hedging into uselessness.** "This might possibly suggest that under certain conditions..." — either commit to the insight or drop it. Flag confidence level instead of hedging the language.
-- **Kitchen-sink analysis.** Applying every lens to every data set. Use 3–7 lenses, not all 18. The value is in selection, not exhaustiveness.
+- **Theory without evidence.** An insight that sounds smart but doesn't point to specific data. The #1 failure mode.
+- **Forced connections.** Straining to link genuinely unrelated data points. "No strong insight here" is a valid output.
+- **Vague gesturing.** "This could have major implications" without saying what they are.
+- **Prediction without mechanism.** "X will happen" without showing the causal chain from the data.
+- **Pattern over-fitting.** Seeing patterns because you're motivated to find them. Test: "Would I believe this if I hadn't been looking for it?"
+- **Hedging into uselessness.** "This might possibly suggest..." — commit to the insight or drop it. Use the confidence label instead of hedging the language.
+- **Kitchen-sink analysis.** Using too many lenses. 3-7 insights, not 18.
 
 ---
 
 ## Key Principles
 
-1. **Non-obvious or nothing.** The entire purpose is to surface what the user cannot see on their own. If an insight is obvious, discard it.
-2. **Show the reasoning.** Every insight must include the logical chain. The reader should be able to evaluate the argument, not just receive a conclusion.
-3. **Concrete and specific.** Replace generalities with specifics. Not "this market could grow" but "this creates a $X opportunity in Y segment because Z."
-4. **Calibrated confidence.** Flag how confident you are and why. Speculation is valuable when labeled as speculation.
-5. **Less is more.** Three strong insights beat seven weak ones. Ruthlessly filter.
+1. **Data first, lenses second.** Find what's interesting in the data, then use lenses to articulate it. Never the reverse.
+2. **Obvious in hindsight.** The best insight makes the reader say "how did I miss that?" because the evidence was right there.
+3. **Every insight must point to evidence.** If you can't cite specific data from the input, it's theory, not insight.
+4. **Concrete and specific.** Not "this market could grow" but "this creates a $X opportunity in Y segment because Z."
+5. **Less is more.** Three grounded insights beat seven theoretical ones.
 6. **Connect, don't summarize.** The input is data. The output is meaning. The gap between them is where your work happens.
 
 ---
