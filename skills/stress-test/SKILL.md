@@ -95,6 +95,8 @@ Present attacks ordered by severity (most damaging first).
 [2-4 sentences: the counterargument, stated with conviction. Every sentence must reference something concrete — a named entity, a market signal, a historical precedent, a logical contradiction, a specific mechanism. No sentence may consist entirely of abstract skepticism. Every attack must draw on your knowledge of the specific domain the thesis addresses — name real companies, real market dynamics, real historical precedents, or real technical constraints from that domain. Do not invent illustrative examples; use actual ones. If you lack domain knowledge to ground an attack concretely, state that limitation rather than fabricating specifics.]
 
 **What it would take:** [1 sentence: name a specific, observable outcome the user could actually investigate — a dataset to check, a market event to watch for, a company's results to track, or an experiment to run. "More evidence" or "time will tell" are not acceptable answers.]
+
+**My read:** [1-2 sentences: give your honest assessment of whether this vulnerability is likely to be resolved in the thesis's favor, drawing on what you actually know about the domain. State evidence, precedents, or current signals that inform your view. Do not hedge — take a position.]
 ```
 
 After all attacks, output the Verdict and Kill Question sections (see below).
