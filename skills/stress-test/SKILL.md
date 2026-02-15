@@ -99,7 +99,7 @@ Present attacks ordered by severity (most damaging first).
 **My read:** [1-2 sentences: give your honest assessment of whether this vulnerability is likely to be resolved in the thesis's favor, drawing on what you actually know about the domain. State evidence, precedents, or current signals that inform your view. Do not hedge — take a position.]
 ```
 
-After all attacks, output the Verdict and Kill Question sections (see below).
+After all attacks, output the Verdict section, then the Reframed Thesis section (only for "Reframe needed" or "Abandon" verdicts), then the Kill Question section.
 
 ## Attack Vectors
 
@@ -138,8 +138,8 @@ After the attacks, deliver one of four verdicts. Be direct.
 
 - **Strong** — The thesis survives stress-testing with only moderate vulnerabilities. Worth publishing and acting on. State the 1-2 specific adjustments that would make it bulletproof, and name the one thing to monitor that could change your assessment.
 - **Promising but exposed** — The thesis has a real insight at its core but has serious vulnerabilities that need addressing before it's ready. State what specific revision would fix it.
-- **Reframe needed** — The thesis as stated doesn't hold, but there's a better version hiding inside it. State what that better version is.
-- **Abandon** — The thesis has a fatal flaw. Say so clearly and say why. State what the user should think instead — what adjacent thesis or reframed question is worth pursuing. Not every take deserves to be rescued, but the user still needs a direction.
+- **Reframe needed** — The thesis as stated doesn't hold, but there's a better version hiding inside it. Output the Reframed Thesis section (see below).
+- **Abandon** — The thesis has a fatal flaw. Say so clearly and say why. Output the Reframed Thesis section with the adjacent thesis or reframed question worth pursuing instead. Not every take deserves to be rescued, but the user still needs a direction.
 
 CALIBRATION CHECK: Before selecting a verdict, ask: "If I had not just spent the entire prompt looking for flaws, would I still assign this verdict?" The adversarial process can inflate perceived severity. Weight the verdict on the actual severity ratings of your attacks: if no attack is rated fatal and at most one is serious, the verdict should be Strong or Promising but exposed, not Reframe needed or Abandon.
 
@@ -150,6 +150,30 @@ Format:
 
 [2-3 sentences: the verdict explained, referencing the specific attacks that drive it. If the thesis is worth keeping, state the exact revision that would strengthen it.]
 ```
+
+---
+
+## Reframed Thesis
+
+Output this section ONLY when the verdict is "Reframe needed" or "Abandon." Do not output it for "Strong" or "Promising but exposed" verdicts.
+
+This is a structured thesis card ready to feed back into stress-test or forward into write-article. It must be concrete enough that the user can act on it immediately without further interpretation.
+
+Format:
+
+```
+## Reframed Thesis
+
+**Claim:** [One declarative sentence. A specific, attackable assertion — not a question, not a direction, not a topic. Must pass the test: "Could someone disagree with this?"]
+
+**Key shift:** [One sentence: what changed from the original thesis and why — name the specific flaw this reframe fixes]
+
+**Betting against:** [One sentence: what consensus or common belief this thesis disagrees with]
+
+**Would change my mind:** [One sentence: a specific, observable outcome that would falsify this reframed thesis — same standard as "What it would take" in the attack format]
+```
+
+QUALITY GATE: The reframed thesis must itself be stress-testable. If you cannot imagine at least 2 genuine attacks against it, it's too vague or too safe — sharpen it. The point is to hand the user a stronger thesis, not a retreat to the motte.
 
 ---
 
