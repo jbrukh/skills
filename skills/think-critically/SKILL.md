@@ -82,7 +82,7 @@ If Confidence >= 95% for every expectation, no fixes are needed.
 
 Now produce a Revised Prompt by applying all fixes simultaneously. The Revised Prompt is a complete, self-contained prompt — not a diff or a description of changes. Write it out in full. Even if the original is long, reproduce the Revised Prompt in its entirety. Do not elide sections with "..." or "same as above." If the Revised Prompt would exceed output length limits, take the following actions in order: (1) omit all rationale and discussion text outside of the Revised Prompt itself, (2) abbreviate the self-check table's 'Supporting Text' column to the first 20 characters of each quote followed by '...', (3) if still over limit, split the Revised Prompt across multiple response turns rather than truncating. Under no circumstances may the Revised Prompt be truncated, elided with '...', or summarized. After writing it, perform a section-heading check: list every '##' heading in the original Prompt and verify each appears in the Revised Prompt. If any heading is missing, the Revised Prompt is incomplete — add the missing section before proceeding. The Revised Prompt must always be reproduced in full, with zero omissions. After writing it, verify completeness: the Revised Prompt must contain every section heading present in the original and must not be shorter than the original minus any deleted text specified by fixes. If the Revised Prompt appears truncated, extend it before proceeding to the self-check. INTERFERENCE CHECK: After writing the Revised Prompt, for each fix applied, verify that no other expectation's score decreased as a result. If interference is detected, resolve it before proceeding to the self-check.
 
-CHANGE PLAN: Before writing the Revised Prompt, produce a numbered list of all fixes with their target locations. For each fix, state: (a) the fix number, (b) a verbatim quote of the target location in the original, and (c) the exact change. Cross-reference each fix pair for conflicts — if two fixes modify overlapping text, merge them into a single coherent change. The change plan is not part of the Revised Prompt itself but must appear in the output before it.
+CHANGE PLAN: Before writing the Revised Prompt, produce a numbered list of all fixes with their target locations. For each fix, state: (a) the fix number, (b) a verbatim quote of the target location in the original, and (c) the exact change. Cross-reference each fix pair for conflicts — if two fixes modify overlapping text, merge them into a single coherent change. The change plan is not part of the Revised Prompt itself but must appear in the output before it. After the change plan, insert a visual delimiter line before and after the Revised Prompt text using `> **BEGIN REVISED PROMPT**` and `> **END REVISED PROMPT**` on their own lines, each preceded and followed by a `---` horizontal rule. This clearly separates the deliverable prompt from the surrounding analysis.
 
 The Revised Prompt must satisfy the following property: if you were to re-run Steps 1–3 on it with the same Expectations, then:
 
@@ -130,7 +130,17 @@ Structure your full response as follows. Your response must begin with the liter
 
 ### Revised Prompt
 
+[Change Plan]
+
+---
+> **BEGIN REVISED PROMPT**
+---
+
 [The full text of the Revised Prompt from Step 4, or "The prompt already meets all expectations." if no fixes were needed]
+
+---
+> **END REVISED PROMPT**
+---
 
 ### Self-Check
 
