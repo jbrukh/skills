@@ -57,11 +57,7 @@ Where:
 
 ## Step 2: Overall Score
 
-Compute the overall score as the average of all Confidence values.
-
-Show the computation explicitly: list the individual scores, their sum, the count, and the resulting average. For example: Overall Score = (80% + 60% + 90%) / 3 = 230% / 3 = 77%. This makes arithmetic errors detectable.
-
-Report this score explicitly.
+Compute the overall score as the average of all Confidence values. This is the "Before" overall score.
 
 ## Step 3: Recommended Fixes
 
@@ -82,7 +78,7 @@ If Confidence >= 95% for every expectation, no fixes are needed.
 
 Now produce a Revised Prompt by applying all fixes simultaneously. The Revised Prompt is a complete, self-contained prompt — not a diff or a description of changes. Write it out in full. Even if the original is long, reproduce the Revised Prompt in its entirety. Do not elide sections with "..." or "same as above." If the Revised Prompt would exceed output length limits, take the following actions in order: (1) omit all rationale and discussion text outside of the Revised Prompt itself, (2) abbreviate the self-check table's 'Supporting Text' column to the first 20 characters of each quote followed by '...', (3) if still over limit, split the Revised Prompt across multiple response turns rather than truncating. Under no circumstances may the Revised Prompt be truncated, elided with '...', or summarized. After writing it, perform a section-heading check: list every '##' heading in the original Prompt and verify each appears in the Revised Prompt. If any heading is missing, the Revised Prompt is incomplete — add the missing section before proceeding. The Revised Prompt must always be reproduced in full, with zero omissions. After writing it, verify completeness: the Revised Prompt must contain every section heading present in the original and must not be shorter than the original minus any deleted text specified by fixes. If the Revised Prompt appears truncated, extend it before proceeding to the self-check. INTERFERENCE CHECK: After writing the Revised Prompt, for each fix applied, verify that no other expectation's score decreased as a result. If interference is detected, resolve it before proceeding to the self-check.
 
-CHANGE PLAN: Before writing the Revised Prompt, produce a numbered list of all fixes with their target locations. For each fix, state: (a) the fix number, (b) a verbatim quote of the target location in the original, and (c) the exact change. Cross-reference each fix pair for conflicts — if two fixes modify overlapping text, merge them into a single coherent change. The change plan is not part of the Revised Prompt itself but must appear in the output before it. After the change plan, insert a visual delimiter line before and after the Revised Prompt text using `> **BEGIN REVISED PROMPT**` and `> **END REVISED PROMPT**` on their own lines, each preceded and followed by a `---` horizontal rule. This clearly separates the deliverable prompt from the surrounding analysis.
+CHANGE PLAN: Before writing the Revised Prompt, internally produce a numbered list of all fixes with their target locations. For each fix, identify: (a) the fix number, (b) the target location in the original, and (c) the exact change. Cross-reference each fix pair for conflicts — if two fixes modify overlapping text, merge them into a single coherent change. The change plan is internal reasoning and does not appear in the output.
 
 The Revised Prompt must satisfy the following property: if you were to re-run Steps 1–3 on it with the same Expectations, then:
 
@@ -93,44 +89,34 @@ This means the Revised Prompt is not merely an incremental improvement. It must 
 
 To achieve this, do not apply fixes superficially. When writing the Revised Prompt, systematically verify each expectation against it by locating the specific text that satisfies it. For each expectation, verify that your specific wording would score >= 95%. If a fix feels superficial, make it more aggressive. It is better to over-correct than to under-correct. Think about whether the fixes interact, whether applying one weakens another expectation, and whether the Revised Prompt as a whole is coherent.
 
-SCORING GATE: After completing the self-check table, compute the Revised Overall Score explicitly using the same formula as Step 2. If the Revised Overall Score <= the original Overall Score, do not present the Revised Prompt as final — revise it to address the lowest-scoring expectations and recompute. This gate is mandatory and must be shown in the output.
+SCORING GATE: After writing the Revised Prompt, re-run Steps 1–2 on it to produce "After" scores for each expectation. These scores populate the "After" column of the output table. Compute the Revised Overall Score as the average of all "After" scores. If the Revised Overall Score <= the original Overall Score, revise the Revised Prompt to address the lowest-scoring expectations and re-score.
 
-After writing the Revised Prompt, perform an explicit self-check: re-run Steps 1–2 on the Revised Prompt and produce a verification table with the following columns:
+For each expectation, verify that specific text in the Revised Prompt supports the score. If you cannot find supporting text for an expectation, that expectation scores 0% and the Revised Prompt must be revised. If any "After" score < 95%, revise the Revised Prompt and re-score. During revision, for each failing expectation, add or modify at least one sentence that directly addresses it. After each revision, re-score from scratch; do not anchor on previous scores. Perform at most 5 revision iterations. If all expectations are not satisfied after 5 iterations, present the best Revised Prompt achieved and state the verdict accordingly.
 
-| Expectation | Supporting Text in Revised Prompt (verbatim quote) | Revised Confidence |
-|---|---|---|
+Do not present the Revised Prompt as final until every expectation scores >= 95%. The only exception is when expectations are logically contradictory, in which case state the contradiction explicitly and explain why no prompt can satisfy all of them simultaneously.
 
-List each expectation as a row. The self-check table must contain exactly the same number of rows as the scorecard in Step 1 — one row per expectation. The 'Supporting Text' column must contain a direct verbatim quote from the Revised Prompt (not a paraphrase or description). If you cannot find supporting text for an expectation, that expectation scores 0% in the self-check, and the Revised Prompt must be revised. If any Confidence < 95%, revise the Revised Prompt in place and repeat the self-check. During revision, for each failing expectation, you must add or modify at least one sentence that directly and explicitly addresses that expectation — do not merely rephrase existing text. After each revision, re-score from scratch as if encountering the Revised Prompt for the first time; do not anchor on previous scores. ADVERSARIAL ANTI-ANCHORING: For each expectation, write one sentence describing how the Revised Prompt could plausibly fail to meet it before assigning the Confidence score. This adversarial step counteracts anchoring bias and must appear in the output alongside each score. Perform at most 5 revision iterations. If all expectations are not satisfied after 5 iterations, present the best Revised Prompt achieved and state the verdict accordingly.
-
-Do not present the Revised Prompt as final until every expectation scores >= 95% in the verification table. The only exception is when expectations are logically contradictory, in which case state the contradiction explicitly and explain why no prompt can satisfy all of them simultaneously.
-
-After the verification table, state one of:
+State one of:
 - "VERDICT: ALL EXPECTATIONS MET — every expectation scores 95%+ in the Revised Prompt."
 - "VERDICT: SOME EXPECTATIONS UNMET — [reason]." (Use only when expectations are logically contradictory or the iteration limit is reached.)
-
-ZERO-FIX GATE: After the self-check table, explicitly answer: 'If I encountered this Revised Prompt for the first time and ran a full evaluation, would any fix be needed?' If the answer is yes, revise the Revised Prompt to address it. This gate is in addition to the scoring gate.
-
-APPLY PROMPT: After the VERDICT statement, if fixes were proposed and a Revised Prompt was produced, ask the user: "Apply the Revised Prompt?" If the user confirms, replace the original file or content with the Revised Prompt. If the user declines or wants modifications, follow their instructions. If no fixes were needed, do not ask — end after the VERDICT statement. After the apply prompt, produce zero additional characters. No summary, no reflection, no "I hope this helps," no sign-off.
 
 ---
 
 ## Output Format
 
-Structure your full response as follows. Your response must begin with the literal characters "### Prompt Evaluation" — no greetings, acknowledgments, preambles, or blank lines may precede it. Do not add commentary, summaries, or conclusions after the "### Self-Check" section. The sections below are the complete output.
+Structure your full response as follows. Your response must begin with the literal characters "### Prompt Evaluation" — no greetings, acknowledgments, preambles, or blank lines may precede it. Do not add commentary, summaries, or conclusions after the output sections below. The sections below are the complete output.
 
 ### Prompt Evaluation
 
-[The scorecard table from Step 1]
+[A single table combining the original scores from Step 1 with the revised scores from the Step 4 self-check. If no fixes were needed (all original scores >= 95%), the "After" column mirrors the "Before" column.]
 
-**Overall Score: [value]%**
+| Expectation | Before | After |
+|---|---|---|
 
-### Recommended Fixes
+**Overall Score: [original]% → [revised]%**
 
-[The list from Step 3, or "No fixes needed — all expectations met." if all Confidence >= 95%]
+[VERDICT statement]
 
 ### Revised Prompt
-
-[Change Plan]
 
 ---
 > **BEGIN REVISED PROMPT**
@@ -141,16 +127,6 @@ Structure your full response as follows. Your response must begin with the liter
 ---
 > **END REVISED PROMPT**
 ---
-
-### Self-Check
-
-[Verification table with columns: Expectation | Supporting Text in Revised Prompt (verbatim quote) | Revised Confidence. Or "All expectations confirmed at 95%+ — no self-check needed." if no fixes were needed.]
-
-[VERDICT statement]
-
-### Apply
-
-[If fixes were proposed: "Apply the Revised Prompt?" If no fixes were needed: omit this section entirely.]
 
 ---
 
