@@ -14,7 +14,7 @@ Take data, observations, or notes and surface insights that were hiding in the d
 - User has disparate information and wants to understand how pieces relate
 - User wants to reason about implications, predictions, or hidden dynamics
 
-Do NOT use for: summarizing (use sharpen-prompt), writing articles (use write-article), or evaluating prompts (use think-critically).
+Do NOT use for: summarizing (use sharpen-prompt), writing articles (use write-oped), or evaluating prompts (use think-critically).
 
 ## The Grounding Rule
 

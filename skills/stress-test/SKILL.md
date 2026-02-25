@@ -157,7 +157,7 @@ Format:
 
 Output this section ONLY when the verdict is "Reframe needed" or "Abandon." Do not output it for "Strong" or "Promising but exposed" verdicts.
 
-This is a structured thesis card ready to feed back into stress-test or forward into write-article. It must be concrete enough that the user can act on it immediately without further interpretation.
+This is a structured thesis card ready to feed back into stress-test or forward into write-oped. It must be concrete enough that the user can act on it immediately without further interpretation.
 
 Format:
 

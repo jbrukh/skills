@@ -11,14 +11,14 @@ Walk through an existing article or set of bullet points one section at a time, 
 
 - User invokes `/improve-article`, asks to "improve this article," "make this better," "expand these bullets," "punch this up," or "help me strengthen this piece"
 - User has existing text (draft article, bullet points, rough notes) they want elevated
-- NOT for: writing from scratch when no existing text exists (use `/write-article`), or polishing a single paragraph or short passage that doesn't need section-by-section treatment (use `/sharpen-prompt`). **Boundary rule:** If the user provides fewer than 3 sentences or bullet points, suggest `/sharpen-prompt` instead. If the user provides only a topic with no existing text at all, suggest `/write-article` instead. If the user provides rough bullets or notes — even sparse ones — that represent their own thinking, proceed with `/improve-article`; the user has content, and this skill's job is to elevate it.
+- NOT for: writing from scratch when no existing text exists (use `/write-oped`), or polishing a single paragraph or short passage that doesn't need section-by-section treatment (use `/sharpen-prompt`). **Boundary rule:** If the user provides fewer than 3 sentences or bullet points, suggest `/sharpen-prompt` instead. If the user provides only a topic with no existing text at all, suggest `/write-oped` instead. If the user provides rough bullets or notes — even sparse ones — that represent their own thinking, proceed with `/improve-article`; the user has content, and this skill's job is to elevate it.
 
 ## Phase 1: Style & Context Intake
 
 Before touching a single word, gather context. Ask the following in **one conversational message** — skip any question the user has already answered:
 
 1. **Audience & venue** — "Who is reading this, and where will it appear?" (e.g., crypto-native investors on Substack; general tech audience on a company blog). This determines assumed knowledge, analogy domains, and register.
-2. **Style prompt** — "Describe the style you want — a reference author, a set of adjectives, or a vibe." Push back if the answer is vague (e.g., "make it good"). Acceptable answers: "Paul Graham but more technical," "authoritative, spare, dry wit," "Brukhman voice from write-article." If the user says "Brukhman voice" or similar, import the voice rules from the write-article skill verbatim.
+2. **Style prompt** — "Describe the style you want — a reference author, a set of adjectives, or a vibe." Push back if the answer is vague (e.g., "make it good"). Acceptable answers: "Paul Graham but more technical," "authoritative, spare, dry wit," "Brukhman voice from write-oped." If the user says "Brukhman voice" or similar, import the voice rules from the write-oped skill verbatim.
 3. **Desired reader takeaway** — "When someone finishes this piece, what should they think or feel?" This anchors the closing and the insight direction.
 4. **Anything that must stay as-is** — "Are there sections, phrases, or data points I should not change?" Respect authorial intent.
 

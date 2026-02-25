@@ -1,15 +1,15 @@
 ---
-name: write-article
+name: write-oped
 description: Write accessible, engaging op-ed-style articles in the Brukhman voice, authoritative but conversational, technically grounded, with progressive narrative structure.
 ---
 
-# Write Article
+# Write Op-Ed
 
 Write a polished op-ed from user-provided bullet points, following the voice, structure, and rhetoric below.
 
 ## When to Use
 
-- User invokes `/write-article`, asks to "write an article", "draft an op-ed", or "write a piece about..."
+- User invokes `/write-oped`, asks to "write an op-ed", "draft an op-ed", or "write a piece about..."
 - User wants a long-form opinion or explainer for publication
 
 ## Voice & Tone
