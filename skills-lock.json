@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "skills": {
+    "compress-prompt": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "776d2408514996a29c1a5afea2587c63754e07f89712b99909e06244639f6cf5"
+    },
+    "humanize": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "bae6108ae3560cca3ac97321deb5de6657c7953ef4c835166eab036c178c20e2"
+    },
+    "improve-article": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "2fd3a47198ec61a1afb9e19c837909e25d5e36904c517561fe2193722704932d"
+    },
+    "mental-models": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "1c3372fab64d0795398773fac5c0d95b8473090d8c0dfd51514aacf63ce805f5"
+    },
+    "optimize-prompt": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "61e7fac59b101cc417d27c092a5f8f34b2cb01268c938270bbcf0343d87b071e"
+    },
+    "sharpen-prompt": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "d9fa41533a6cd29a6292a4bd4415d252120db30e73d40ba9f2ddeb3ea600e12d"
+    },
+    "stress-test": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "963e9772ba95d0812c59abfed4c1575f2791f239448ff3904c24ecebff1a1f56"
+    },
+    "support-with-evidence": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "4276eee14ed30c141ed4d43243e81718cc74de93cfbef9f9a7f28076587e3210"
+    },
+    "surface-insight": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "280b5cdbc75848861e1fd778c7e448edf65109bff760423aaee719904f111134"
+    },
+    "think-critically": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "c12ef592a4450e50e897c7833d36744c1210e6e7587da01340d36a36ca5b05e4"
+    },
+    "visualize-lyrics": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "22c8bd05445fffe34c8d0cf480c41fb13adb0d386c369c5527e1707739527148"
+    },
+    "web-deck": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "87d2eddbbb5e975feaca16b79a48b9da3ff37405dfd95cce60a87431fd8651f0"
+    },
+    "write-oped": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "c9ecf1fd962663cfd8476cdedb2ad1a6ac646d7c55039898e1bcb5c385035c12"
+    },
+    "write-thread-essay": {
+      "source": "jbrukh/skills",
+      "sourceType": "github",
+      "computedHash": "c471cde72dd77737ce46e84685ae60cdddfb8256db99249588e4be12aeece51c"
+    }
+  }
+}
