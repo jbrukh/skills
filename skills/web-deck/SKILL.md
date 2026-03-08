@@ -66,16 +66,16 @@ Slides are **16:9** aspect ratio (960px x 540px base, scaled to fill viewport).
 ### Title Slide (always first)
 
 - Background: `--white` (#FFFFFF), not cream
-- CoinFund logo: text wordmark "CoinFund" in 52px Arial bold, color `--text`, centered
-- Thin divider line below wordmark: 240px wide, `--text`, centered
-- Deck title: 28px Nunito bold, color `--blue`, centered below divider
+- CoinFund logo: `<img>` tag using the base64 data URI from `coinfund-logo-base64.txt`, centered, ~200px wide
+- Thin divider line below logo: 240px wide, `--text`, centered
+- Deck title: 28px Nunito bold, color `--blue`, centered below divider (sentence case)
 - Subtitle/date: 14px Nunito, color `--gray`, centered
 
 ```html
 <section class="slide slide--title">
-  <div class="slide__wordmark">CoinFund</div>
+  <img class="slide__logo" src="DATA_URI_HERE" alt="CoinFund">
   <hr class="slide__divider slide__divider--title">
-  <h1 class="slide__deck-title">Deck Title Here</h1>
+  <h1 class="slide__deck-title">Deck title here</h1>
   <p class="slide__subtitle">March 2026</p>
 </section>
 ```
@@ -83,13 +83,13 @@ Slides are **16:9** aspect ratio (960px x 540px base, scaled to fill viewport).
 ### End Slide (always last)
 
 - Background: `--bg` (cream)
-- "CoinFund" in 36px Nunito bold, color `--blue`, centered
+- CoinFund logo: `<img>` tag using base64 data URI, centered, ~160px wide
 - Gray divider rule centered
 - "coinfund.io" in 13px Nunito, color `--gray`, centered
 
 ```html
 <section class="slide slide--end">
-  <div class="slide__end-wordmark">CoinFund</div>
+  <img class="slide__logo slide__logo--end" src="DATA_URI_HERE" alt="CoinFund">
   <hr class="slide__divider slide__divider--end">
   <p class="slide__end-url">coinfund.io</p>
 </section>
@@ -274,12 +274,13 @@ body {
   text-align: center;
   padding: 0 76px;
 }
-.slide__wordmark {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 52px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: 1px;
+/* Logo image — used on title and end slides */
+.slide__logo {
+  width: 200px;
+  height: auto;
+}
+.slide__logo--end {
+  width: 160px;
 }
 .slide__divider--title {
   border: none;
@@ -307,11 +308,7 @@ body {
   text-align: center;
   padding: 0 76px;
 }
-.slide__end-wordmark {
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--blue);
-}
+/* End slide uses .slide__logo--end for sizing (see above) */
 .slide__divider--end {
   border: none;
   border-top: 1px solid var(--ltgray);
@@ -506,7 +503,7 @@ body {
 
 <!-- ═══════════ TITLE SLIDE ═══════════ -->
 <section class="slide slide--title">
-  <div class="slide__wordmark reveal">CoinFund</div>
+  <img class="slide__logo reveal" src="DATA_URI_HERE" alt="CoinFund">
   <hr class="slide__divider slide__divider--title reveal">
   <h1 class="slide__deck-title reveal">DECK_TITLE_HERE</h1>
   <p class="slide__subtitle reveal">MONTH YEAR</p>
@@ -517,7 +514,7 @@ body {
 
 <!-- ═══════════ END SLIDE ═══════════ -->
 <section class="slide slide--end">
-  <div class="slide__end-wordmark reveal">CoinFund</div>
+  <img class="slide__logo slide__logo--end reveal" src="DATA_URI_HERE" alt="CoinFund">
   <hr class="slide__divider slide__divider--end reveal">
   <p class="slide__end-url reveal">coinfund.io</p>
 </section>
@@ -671,13 +668,14 @@ The overlay menu and reload client are injected at serve time — they do not ex
 ### Workflow
 
 1. User provides outline (slide titles + content bullets) and mode preference (static/dynamic)
-2. Start from the HTML boilerplate above
-3. Choose the right content pattern for each slide
-4. Write the complete HTML file as `deck.html` (or user-specified name)
-5. **Start the server** (background, one time): `node <skill-dir>/serve-deck.mjs 3333 .`
-6. **Open in browser** (one time): `open http://localhost:3333/deck.html`
-7. **Iterate** — use the Edit tool to modify slides. Changes appear in the browser instantly.
-8. Download PDF from the overlay menu when ready.
+2. Read `coinfund-logo-base64.txt` from the skill directory to get the logo data URI
+3. Start from the HTML boilerplate above, replacing `DATA_URI_HERE` with the logo data URI
+4. Choose the right content pattern for each slide. Apply sentence case to all titles.
+5. Write the complete HTML file as `deck.html` (or user-specified name)
+6. **Start the server** (background, one time): `node <skill-dir>/serve-deck.mjs 3333 .`
+7. **Open in browser** (one time): `open http://localhost:3333/deck.html`
+8. **Iterate** — use the Edit tool to modify slides. Changes appear in the browser instantly.
+9. Download PDF from the overlay menu when ready.
 
 ### Important: keep the server running
 
@@ -697,6 +695,24 @@ The CoinFund deck style is defined by restraint:
 6. **One accent line per slide.** The short `slide__accent` `<hr>` separates title from content. That's the only decoration.
 7. **Terse over verbose.** Bullets should be 1-2 sentences max. The deck is a conversation starter, not a whitepaper.
 8. **Uniform style changes.** When the user makes a visual or stylistic change to one slide, apply that change consistently across all slides in the deck.
+9. **All titles are sentence case.** Only capitalize the first word and proper nouns. Example: "Market overview" not "Market Overview", "Key risks and mitigations" not "Key Risks and Mitigations". This applies to slide titles (`slide__title`), deck titles (`slide__deck-title`), block headers, and any other heading-level text.
+10. **Use the CoinFund logo where possible.** The logo image (`coinfund-logo.png`, co-located with this SKILL.md) should appear on the title slide and end slide as an `<img>` tag using an embedded base64 data URI (see Logo section below). Prefer the logo image over the text wordmark for a more polished, branded appearance.
+
+## Logo
+
+The CoinFund logo is stored as `coinfund-logo.png` (transparent background, black wordmark) alongside this SKILL.md. A pre-encoded data URI is available in `coinfund-logo-base64.txt` in the same directory.
+
+**When generating a deck**, read `coinfund-logo-base64.txt` (in the same directory as this SKILL.md) and embed its contents as the `src` attribute of `<img>` tags. This keeps the deck fully self-contained.
+
+```bash
+# To get the data URI for embedding:
+cat /path/to/skills/web-deck/coinfund-logo-base64.txt
+```
+
+Use the logo image on:
+- **Title slide**: replace the text wordmark with `<img class="slide__logo" src="DATA_URI_HERE" alt="CoinFund">`
+- **End slide**: replace the text wordmark with `<img class="slide__logo slide__logo--end" src="DATA_URI_HERE" alt="CoinFund">`
+- **Content slides** (optional): a small logo in the footer or corner can be added for extra branding
 
 ## Incremental Editing
 
