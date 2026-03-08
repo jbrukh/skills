@@ -1,6 +1,6 @@
 ---
 name: compress-prompt
-description: Compress a prompt while preserving semantic content. Supports lossy (default, 30-50% reduction) and lossless (--lossless, 100% retention) modes.
+description: Compress a prompt while preserving semantic content. Use when user says "compress this prompt", "make this shorter", "reduce token count", or "shorten these instructions". Supports lossy (default, 30-50% reduction) and lossless (--lossless, 100% retention) modes.
 ---
 
 # Compress Prompt

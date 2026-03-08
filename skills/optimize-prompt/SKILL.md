@@ -1,6 +1,6 @@
 ---
 name: optimize-prompt
-description: Optimize a prompt through a critique-compress pipeline with semantic equivalence verification at each stage. Applies think-critically to improve the prompt, then compress-prompt to reduce it, validating that behavior is preserved after each transformation.
+description: Optimize a prompt through a critique-compress pipeline with semantic equivalence verification at each stage. Use when user says "optimize this prompt", "make this prompt better and shorter", or "improve and compress". Applies think-critically to improve the prompt, then compress-prompt to reduce it, validating that behavior is preserved after each transformation.
 ---
 
 # Optimize Prompt

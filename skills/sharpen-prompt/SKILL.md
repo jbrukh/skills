@@ -1,6 +1,6 @@
 ---
 name: sharpen-prompt
-description: Take any user output — prompt, story, procedure, analysis — and make it maximally effective through iterative intent extraction and focused questioning.
+description: Take any user output — prompt, story, procedure, analysis — and make it maximally effective through iterative intent extraction and focused questioning. Use when user says "sharpen this", "make this more effective", "help me clarify this", or "refine my writing".
 ---
 
 # Sharpen Output

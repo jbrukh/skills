@@ -1,6 +1,6 @@
 ---
 name: surface-insight
-description: Take data, observations, or notes and surface non-obvious insights that click into place — connections, dynamics, and structural truths that were hiding in the data all along.
+description: Take data, observations, or notes and surface non-obvious insights that click into place. Use when user says "what does this mean?", "connect the dots", "what's the insight here?", "analyze these notes", or provides bullet points and asks for meaning. Finds connections, dynamics, and structural truths hiding in the data.
 ---
 
 # Surface Insight

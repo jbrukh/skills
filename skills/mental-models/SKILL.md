@@ -1,6 +1,6 @@
 ---
 name: mental-models
-description: Surface the top 3 mental models from contemporary thinking that best illuminate a given problem or situation, with applied analysis showing how each model reframes or clarifies the issue.
+description: Surface the top 3 mental models from contemporary thinking that best illuminate a given problem or situation. Use when user says "what mental models apply here?", "help me think about this", "what framework should I use?", or "reframe this problem". Applied analysis showing how each model reframes or clarifies the issue.
 ---
 
 # Mental Models

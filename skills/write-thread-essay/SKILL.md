@@ -1,6 +1,6 @@
 ---
 name: write-thread-essay
-description: Write punchy, conviction-driven thread essays in the Brukhman voice, first-person, insider-to-insider, with contrarian framing and enumerated arguments.
+description: Write punchy, conviction-driven thread essays in the Brukhman voice. Use when user says "write a thread essay", "write a post about", "draft a thread", or wants a conviction-driven insider-audience piece. First-person, insider-to-insider, with contrarian framing and enumerated arguments.
 ---
 
 # Write Thread Essay

@@ -1,6 +1,6 @@
 ---
 name: visualize-lyrics
-description: Transform song lyrics into vivid visual scene descriptions and image generation prompts — filtering for concrete imagery and rendering each distinct scene as a numbered canvas.
+description: Transform song lyrics into vivid visual scene descriptions and image generation prompts. Use when user says "visualize these lyrics", "turn this song into images", "create visuals for this track", or provides song lyrics and asks for imagery. Filters for concrete imagery and renders each distinct scene as a numbered canvas.
 ---
 
 # Visualize Lyrics
