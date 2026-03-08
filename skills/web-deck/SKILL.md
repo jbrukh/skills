@@ -237,7 +237,7 @@ Then:
 
 ## Live Development Server
 
-The skill includes a bundled dev server at `serve-deck.mjs` (in the same directory as this SKILL.md). It provides live reload, an overlay menu, and PDF export — zero npm dependencies (Puppeteer only needed for PDF).
+The skill includes a bundled dev server at `serve-deck.mjs` (in the same directory as this SKILL.md). It provides live reload, an overlay menu, and PDF export — zero npm dependencies (Puppeteer auto-installed on first PDF export).
 
 ### Starting the server
 
@@ -252,10 +252,7 @@ Then open the browser:
 open http://localhost:3333/deck.html
 ```
 
-For PDF export support, install Puppeteer once in the deck directory:
-```bash
-npm install puppeteer
-```
+PDF export auto-installs Puppeteer on first use (no manual setup needed).
 
 ### What the server provides
 
