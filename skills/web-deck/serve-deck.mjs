@@ -15,6 +15,20 @@ const MIME = {
 // SSE clients for live reload
 const clients = new Set();
 
+// Auto-shutdown when all browser tabs disconnect
+const SHUTDOWN_DELAY = 5000; // 5s grace period for reconnects / tab refresh
+let shutdownTimer = null;
+function scheduleShutdown() {
+  if (clients.size > 0) return;
+  shutdownTimer = setTimeout(() => {
+    console.log('All clients disconnected — shutting down.');
+    process.exit(0);
+  }, SHUTDOWN_DELAY);
+}
+function cancelShutdown() {
+  if (shutdownTimer) { clearTimeout(shutdownTimer); shutdownTimer = null; }
+}
+
 // Overlay menu — minimal CoinFund-styled toolbar injected into served HTML
 const INJECTED_SNIPPET = `
 <style>
@@ -116,7 +130,11 @@ const server = createServer(async (req, res) => {
     });
     res.write('data: connected\n\n');
     clients.add(res);
-    req.on('close', () => clients.delete(res));
+    req.on('close', () => {
+      clients.delete(res);
+      scheduleShutdown();
+    });
+    cancelShutdown();
     return;
   }
 
