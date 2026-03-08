@@ -146,9 +146,20 @@ const server = createServer(async (req, res) => {
     try {
       puppeteer = await import('puppeteer');
     } catch {
-      res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end('Puppeteer not installed. Run: npm install puppeteer');
-      return;
+      // Auto-install puppeteer on first use
+      const { execSync } = await import('child_process');
+      const { dirname } = await import('path');
+      const { fileURLToPath } = await import('url');
+      const scriptDir = dirname(fileURLToPath(import.meta.url));
+      try {
+        console.log('Installing puppeteer (first-time setup)...');
+        execSync('npm install puppeteer', { cwd: scriptDir, stdio: 'inherit' });
+        puppeteer = await import('puppeteer');
+      } catch (installErr) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Failed to install puppeteer: ' + installErr.message);
+        return;
+      }
     }
     try {
       const browser = await puppeteer.default.launch();
@@ -225,5 +236,5 @@ watch(DIR, { recursive: false }, (event, filename) => {
 server.listen(PORT, () => {
   console.log(`Deck server running at http://localhost:${PORT}/`);
   console.log(`Serving files from ${DIR}`);
-  console.log('PDF export requires: npm install puppeteer');
+  console.log('PDF export available (puppeteer auto-installs on first use)');
 });
