@@ -66,16 +66,16 @@ Slides are **16:9** aspect ratio (960px x 540px base, scaled to fill viewport).
 ### Title Slide (always first)
 
 - Background: `--white` (#FFFFFF), not cream
-- CoinFund logo: text wordmark "CoinFund" in 52px Arial bold, color `--text`, centered
-- Thin divider line below wordmark: 240px wide, `--text`, centered
-- Deck title: 28px Nunito bold, color `--blue`, centered below divider
+- CoinFund logo: the PNG logo image (base64-embedded), 240px wide, centered
+- Thin divider line below logo: 240px wide, `--text`, centered
+- Deck title: 28px Nunito bold, color `--blue`, centered below divider (sentence case)
 - Subtitle/date: 14px Nunito, color `--gray`, centered
 
 ```html
 <section class="slide slide--title">
-  <div class="slide__wordmark">CoinFund</div>
+  <img class="slide__logo" src="data:image/png;base64,..." alt="CoinFund">
   <hr class="slide__divider slide__divider--title">
-  <h1 class="slide__deck-title">Deck Title Here</h1>
+  <h1 class="slide__deck-title">Deck title here</h1>
   <p class="slide__subtitle">March 2026</p>
 </section>
 ```
@@ -83,13 +83,13 @@ Slides are **16:9** aspect ratio (960px x 540px base, scaled to fill viewport).
 ### End Slide (always last)
 
 - Background: `--bg` (cream)
-- "CoinFund" in 36px Nunito bold, color `--blue`, centered
+- CoinFund logo image, 180px wide, centered
 - Gray divider rule centered
 - "coinfund.io" in 13px Nunito, color `--gray`, centered
 
 ```html
 <section class="slide slide--end">
-  <div class="slide__end-wordmark">CoinFund</div>
+  <img class="slide__logo slide__logo--end" src="data:image/png;base64,..." alt="CoinFund">
   <hr class="slide__divider slide__divider--end">
   <p class="slide__end-url">coinfund.io</p>
 </section>
@@ -101,11 +101,13 @@ Every content slide follows this HTML structure:
 
 ```html
 <section class="slide">
-  <h2 class="slide__title">Slide Title</h2>
+  <h2 class="slide__title">Slide title</h2>
   <hr class="slide__accent">
   <div class="slide__body">
     <!-- Content using one of the patterns below -->
   </div>
+  <!-- Optional: corner logo for branding -->
+  <img class="slide__corner-logo" src="data:image/png;base64,..." alt="CoinFund">
   <!-- Optional footnote -->
   <footer class="slide__footnote">Footnote text</footer>
 </section>
@@ -183,6 +185,8 @@ In dynamic mode, add `class="reveal"` to any element that should animate in when
 ```html
 <section class="slide">
   <h2 class="slide__title reveal">Title animates first</h2>
+  <!-- Corner logo on content slides -->
+  <img class="slide__corner-logo" src="data:image/png;base64,..." alt="CoinFund">
   <hr class="slide__accent reveal">
   <div class="slide__body">
     <div class="block reveal">This block animates third</div>
@@ -274,12 +278,21 @@ body {
   text-align: center;
   padding: 0 76px;
 }
-.slide__wordmark {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 52px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: 1px;
+.slide__logo {
+  width: 240px;
+  height: auto;
+}
+.slide__logo--end {
+  width: 180px;
+}
+/* Content slide corner logo */
+.slide__corner-logo {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  width: 80px;
+  height: auto;
+  opacity: 0.5;
 }
 .slide__divider--title {
   border: none;
@@ -307,11 +320,7 @@ body {
   text-align: center;
   padding: 0 76px;
 }
-.slide__end-wordmark {
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--blue);
-}
+/* End slide logo uses .slide__logo--end for sizing */
 .slide__divider--end {
   border: none;
   border-top: 1px solid var(--ltgray);
@@ -506,7 +515,7 @@ body {
 
 <!-- ═══════════ TITLE SLIDE ═══════════ -->
 <section class="slide slide--title">
-  <div class="slide__wordmark reveal">CoinFund</div>
+  <img class="slide__logo reveal" src="data:image/png;base64,..." alt="CoinFund">
   <hr class="slide__divider slide__divider--title reveal">
   <h1 class="slide__deck-title reveal">DECK_TITLE_HERE</h1>
   <p class="slide__subtitle reveal">MONTH YEAR</p>
@@ -514,10 +523,11 @@ body {
 
 <!-- ═══════════ CONTENT SLIDES ═══════════ -->
 <!-- Add slides here. Use class="reveal" on elements for entrance animations. -->
+<!-- Include <img class="slide__corner-logo" src="data:image/png;base64,..." alt="CoinFund"> in content slides for subtle branding -->
 
 <!-- ═══════════ END SLIDE ═══════════ -->
 <section class="slide slide--end">
-  <div class="slide__end-wordmark reveal">CoinFund</div>
+  <img class="slide__logo slide__logo--end reveal" src="data:image/png;base64,..." alt="CoinFund">
   <hr class="slide__divider slide__divider--end reveal">
   <p class="slide__end-url reveal">coinfund.io</p>
 </section>
@@ -696,6 +706,24 @@ The CoinFund deck style is defined by restraint:
 5. **Footnotes sit below main content** with a clear gap. Use `slide__footnote` positioned at the bottom.
 6. **One accent line per slide.** The short `slide__accent` `<hr>` separates title from content. That's the only decoration.
 7. **Terse over verbose.** Bullets should be 1-2 sentences max. The deck is a conversation starter, not a whitepaper.
+8. **Sentence case for all titles.** Slide titles, section headers, and the deck title itself use sentence case (capitalize only the first word and proper nouns). Example: "Key market dynamics" not "Key Market Dynamics".
+9. **Use the CoinFund logo image where possible.** Instead of text-only wordmarks, embed the CoinFund logo as an `<img>` using the base64 data URI below. Use it on the title slide, end slide, and as a subtle branding element on content slides (e.g., small logo in a corner). The logo is transparent-background black text, so it works on both white and cream backgrounds.
+
+### CoinFund Logo (base64 PNG, 400px wide, transparent background)
+
+Embed this in any `<img>` tag. The file is also available at `coinfund-logo.png` in the skill directory for reference.
+
+```
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAADvCAYAAADcvIJsAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAARGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAADoAEAAwAAAAEAAQAAoAIABAAAAAEAAAGQoAMABAAAAAEAAADvAAAAAKvvy3cAAAHNaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJYTVAgQ29yZSA2LjAuMCI+CiAgIDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOmV4aWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vZXhpZi8xLjAvIj4KICAgICAgICAgPGV4aWY6Q29sb3JTcGFjZT4xPC9leGlmOkNvbG9yU3BhY2U+CiAgICAgICAgIDxleGlmOlBpeGVsWERpbWVuc2lvbj40NzcyPC9leGlmOlBpeGVsWERpbWVuc2lvbj4KICAgICAgICAgPGV4aWY6UGl4ZWxZRGltZW5zaW9uPjI4NjA8L2V4aWY6UGl4ZWxZRGltZW5zaW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KZWGhCwAALQxJREFUeAHtnQmcXWV99zOZZMhk35fJnkwQkkAIRKBqSFKJa1ErthUVl9pa2lKr1Vppa8X3xVqX17fWVi0fF5BFQUF7UZBFbEVbQbFoIBAEDAQasksgZM9A9knS+e58J73HOeeec+feuedOfs/n89xz7rM/32f5P9s5p1cvKxMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMoJtBQbGQTEzABEzCBWhAYM2bMVOKdHjfukydPrt29e3dbXPeVdten0gE6PBMwARMwgfIInDp1amFjY+Pvcy0ZQO/evXvh9gs4/M+Sjqvk4GwTIL2R8M2HDx/udw6KQmoUVwriZFNT07Hjx4937Nq16whGJ6vE28GagAmYQCiBhoaGSadPn34V11A3nRa40+1tnf9rce3RAqSlpaX/iRMnxiEoJgB3HIUyCugj+vXrN4T7/kjvzvwzEzx5BLP9CJg9uN3J/xew37Jjxw5NDztq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1Zg0stLR4OP87+CqmYVmHG10PHpuZCN7HG38jy5NHFRSqeGSFp1+GUfF1BFNNWSNbvQFteOYdfBfs45d3L9APnfEeeiwkml0WOkmgPAeSkc0mfoygTqiUz2qQ325Um0yry/RAESvQ9kycOBALZs2bdWSrVWZBPQmCHhPgvdEghgF8yHcN3NVP9vBfTvcNaPbwmB0c094lVBPFiCF1aA3y1w6vdSfZyma6XDPoUC1ToxRwykK9QT/j9CYDjEa0UghdBRVGHA3/1eZFY6yuzkJjq5OCajudC5FxZsC1GlGU5Jszdo6Z27ibeYpKRgnwwRMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMoLoE/gegBctRZGw0HwAAAABJRU5ErkJggg==
+```
+
+Example usage on the title slide:
+
+```html
+<img class="slide__logo" src="data:image/png;base64,..." alt="CoinFund" style="width: 240px; height: auto;">
+```
+
+Use it to replace the text wordmark on title and end slides. On content slides, consider placing a small version (e.g., 80px wide) in the bottom-right corner as a subtle brand mark.
 
 ## Incremental Editing
 
