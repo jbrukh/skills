@@ -696,6 +696,7 @@ The CoinFund deck style is defined by restraint:
 5. **Footnotes sit below main content** with a clear gap. Use `slide__footnote` positioned at the bottom.
 6. **One accent line per slide.** The short `slide__accent` `<hr>` separates title from content. That's the only decoration.
 7. **Terse over verbose.** Bullets should be 1-2 sentences max. The deck is a conversation starter, not a whitepaper.
+8. **Uniform style changes.** When the user makes a visual or stylistic change to one slide, apply that change consistently across all slides in the deck.
 
 ## Incremental Editing
 
