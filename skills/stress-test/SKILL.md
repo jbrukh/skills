@@ -1,6 +1,6 @@
 ---
 name: stress-test
-description: Adversarially test a thesis or take for differentiation, robustness, and blind spots. Prevents publishing consensus as contrarian and surfaces what would change your mind.
+description: Adversarially test a thesis or take for differentiation, robustness, and blind spots. Use when user says "stress test this", "is this take good?", "what am I missing?", "poke holes in this", or "challenge this thesis". Prevents publishing consensus as contrarian and surfaces what would change your mind.
 ---
 
 # Stress Test

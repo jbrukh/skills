@@ -1,6 +1,6 @@
 ---
 name: support-with-evidence
-description: Extract falsifiable ideas from input, deep-research each one, and return evidence for or against with strength ratings. Honest about when evidence contradicts the idea.
+description: Extract falsifiable ideas from input, deep-research each one, and return evidence for or against with strength ratings. Use when user says "find evidence for this", "is this true?", "back this up with data", or "fact-check these claims". Honest about when evidence contradicts the idea.
 ---
 
 # Support With Evidence

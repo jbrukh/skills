@@ -1,6 +1,6 @@
 ---
 name: write-oped
-description: Write accessible, engaging op-ed-style articles in the Brukhman voice, authoritative but conversational, technically grounded, with progressive narrative structure.
+description: Write accessible, engaging op-ed-style articles in the Brukhman voice. Use when user says "write an op-ed", "write an article", "draft a blog post", or wants a long-form opinion piece. Authoritative but conversational, technically grounded, with progressive narrative structure.
 ---
 
 # Write Op-Ed

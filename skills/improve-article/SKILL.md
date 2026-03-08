@@ -1,6 +1,6 @@
 ---
 name: improve-article
-description: Collaboratively improve an article or bullet points section-by-section — surfacing non-obvious insights, applying a target style, and pausing for user input at every step.
+description: Collaboratively improve an article or bullet points section-by-section. Use when user says "improve this article", "make this better", "edit my draft", or "help me revise this piece". Surfaces non-obvious insights, applies a target style, and pauses for user input at every step.
 ---
 
 # Improve Article

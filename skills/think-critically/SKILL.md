@@ -1,6 +1,6 @@
 ---
 name: think-critically
-description: Rigorously evaluate whether a prompt or document will produce the expected output when processed by an LLM. Adversarial analysis with expectations scorecard and actionable recommendations.
+description: Rigorously evaluate whether a prompt or document will produce the expected output when processed by an LLM. Use when user says "evaluate this prompt", "review my prompt", "will this work?", "critique this", or "check my instructions". Adversarial analysis with expectations scorecard and actionable recommendations.
 ---
 
 (The metadata block above is for skill registration only and is not part of the evaluation instructions. Begin reading from the heading below.)
