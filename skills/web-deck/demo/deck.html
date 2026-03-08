@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dynamic">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introducing Web Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── CoinFund Design Tokens ── */
+:root {
+  --bg:      #F7F3EE;
+  --text:    #1A1A1A;
+  --gray:    #7A7A7A;
+  --ltgray:  #C8C2BA;
+  --white:   #FFFFFF;
+  --red:     #C0392B;
+  --green:   #27AE60;
+  --blue:    #2C3E50;
+  --font:    'Nunito', 'Segoe UI', system-ui, sans-serif;
+  --slide-w: 960px;
+  --slide-h: 540px;
+}
+
+body {
+  font-family: var(--font);
+  background: #E8E4DF;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Slide Shell ── */
+.slide {
+  width: var(--slide-w);
+  height: var(--slide-h);
+  background: var(--bg);
+  position: relative;
+  padding: 50px 76px 30px;
+  overflow: hidden;
+}
+
+/* ── Title Slide ── */
+.slide--title {
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 76px;
+}
+.slide__wordmark {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 1px;
+}
+.slide__divider--title {
+  border: none;
+  border-top: 1.5px solid var(--text);
+  width: 240px;
+  margin: 18px auto;
+}
+.slide__deck-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+.slide__subtitle {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+/* ── End Slide ── */
+.slide--end {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 76px;
+}
+.slide__end-wordmark {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--blue);
+}
+.slide__divider--end {
+  border: none;
+  border-top: 1px solid var(--ltgray);
+  width: 180px;
+  margin: 14px auto;
+}
+.slide__end-url {
+  font-size: 13px;
+  color: var(--gray);
+}
+
+/* ── Content Slide Elements ── */
+.slide__title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1.2;
+  margin: 0;
+}
+.slide__accent {
+  border: none;
+  border-top: 1px solid var(--ltgray);
+  width: 144px;
+  margin: 10px 0 16px;
+}
+.slide__body {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.slide__footnote {
+  position: absolute;
+  bottom: 20px;
+  left: 76px;
+  right: 76px;
+  font-size: 10px;
+  color: var(--gray);
+}
+.slide__footnote--warning { color: var(--red); }
+
+/* ── Pattern 1: Header + Body Blocks ── */
+.block + .block { margin-top: 14px; }
+.block__header { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.block__body   { font-size: 13px; color: var(--gray); }
+
+/* ── Pattern 2: Label-Value Grid ── */
+.kv-grid__row { display: flex; gap: 20px; padding: 6px 0; border-bottom: 1px solid var(--ltgray); }
+.kv-grid__row:last-child { border-bottom: none; }
+.kv-grid__label { flex: 0 0 200px; font-size: 12px; font-weight: 700; color: var(--gray); }
+.kv-grid__value { flex: 1; font-size: 12px; color: var(--text); }
+
+/* ── Pattern 4: Numbered List ── */
+.numbered-list { list-style: none; counter-reset: item; }
+.numbered-list li { counter-increment: item; display: flex; gap: 10px; padding: 6px 0; align-items: baseline; }
+.numbered-list li::before {
+  content: counter(item) ".";
+  font-size: 14px; font-weight: 700; color: var(--blue); flex-shrink: 0; min-width: 24px;
+}
+.numbered-list__label { font-size: 13px; font-weight: 700; color: var(--text); }
+.numbered-list__desc  { font-size: 12px; color: var(--gray); }
+
+/* ── Pattern 5: Callout Box ── */
+.callout {
+  background: #E8EDF2;
+  border-left: 4px solid var(--blue);
+  padding: 14px 18px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 2px;
+  margin-top: 16px;
+}
+
+/* ── Semantic Colors ── */
+.text-red   { color: var(--red); }
+.text-green { color: var(--green); }
+.text-blue  { color: var(--blue); }
+.text-gray  { color: var(--gray); }
+
+/* ── Entrance Animations (dynamic mode) ── */
+[data-mode="dynamic"] .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-mode="dynamic"] .slide.active .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+[data-mode="dynamic"] .slide.active .reveal:nth-child(2) { transition-delay: 0.08s; }
+[data-mode="dynamic"] .slide.active .reveal:nth-child(3) { transition-delay: 0.16s; }
+[data-mode="dynamic"] .slide.active .reveal:nth-child(4) { transition-delay: 0.24s; }
+[data-mode="dynamic"] .slide.active .reveal:nth-child(5) { transition-delay: 0.32s; }
+[data-mode="dynamic"] .slide.active .reveal:nth-child(6) { transition-delay: 0.40s; }
+
+/* ── Progress Bar ── */
+.deck-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: var(--blue);
+  transition: width 0.3s ease;
+  z-index: 101;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.15s !important;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   STATIC MODE — all slides visible, print-ready
+   ══════════════════════════════════════════════ */
+[data-mode="static"] .slide {
+  margin: 20px auto;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+[data-mode="static"] .deck-nav { display: none; }
+
+@media print {
+  body { background: white; }
+  .slide {
+    margin: 0; box-shadow: none;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+  .slide:last-child { page-break-after: avoid; }
+  .deck-nav { display: none !important; }
+}
+
+/* ══════════════════════════════════════════════
+   DYNAMIC MODE — one slide at a time
+   ══════════════════════════════════════════════ */
+[data-mode="dynamic"] body,
+[data-mode="dynamic"] { overflow: hidden; }
+
+[data-mode="dynamic"] .slide {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+[data-mode="dynamic"] .slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+[data-mode="dynamic"].overview .slide {
+  position: relative !important;
+  transform: none !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  margin: 20px auto;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+[data-mode="dynamic"].overview .slide:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.deck-nav {
+  position: fixed;
+  bottom: 16px; right: 24px;
+  font-family: var(--font);
+  font-size: 12px;
+  color: var(--gray);
+  z-index: 100;
+  user-select: none;
+}
+</style>
+</head>
+<body>
+
+<div class="deck-progress" id="deck-progress"></div>
+
+<!-- ═══════════ SLIDE 1: TITLE ═══════════ -->
+<section class="slide slide--title">
+  <div class="slide__wordmark reveal">CoinFund</div>
+  <hr class="slide__divider slide__divider--title reveal">
+  <h1 class="slide__deck-title reveal">Introducing Web Deck</h1>
+  <p class="slide__subtitle reveal">Browser-native presentations for CoinFund</p>
+</section>
+
+<!-- ═══════════ SLIDE 2: WHAT IS WEB DECK ═══════════ -->
+<section class="slide">
+  <h2 class="slide__title reveal">What Is Web Deck</h2>
+  <hr class="slide__accent reveal">
+  <div class="slide__body">
+    <div class="block reveal">
+      <div class="block__header">Single HTML file</div>
+      <div class="block__body">Every deck is one self-contained file. No build step, no npm, no framework. Open it in any browser.</div>
+    </div>
+    <div class="block reveal">
+      <div class="block__header">CoinFund brand system</div>
+      <div class="block__body">Cream backgrounds, Nunito typography, semantic color palette. Matches the house style pixel-for-pixel.</div>
+    </div>
+    <div class="block reveal">
+      <div class="block__header">Static or dynamic</div>
+      <div class="block__body">Choose print-optimized static mode or interactive dynamic mode with keyboard nav, transitions, and touch support.</div>
+    </div>
+    <div class="block reveal">
+      <div class="block__header">Git-versionable</div>
+      <div class="block__body">Each slide is a &lt;section&gt; block. Diffs are clean, merges are meaningful, history is useful.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 3: LIVE DEV WORKFLOW ═══════════ -->
+<section class="slide">
+  <h2 class="slide__title reveal">Live Development Workflow</h2>
+  <hr class="slide__accent reveal">
+  <div class="slide__body">
+    <ol class="numbered-list">
+      <li class="reveal">
+        <span class="numbered-list__label">Create deck.html</span>
+        <span class="numbered-list__desc">Start from the boilerplate, add slides using 5 content patterns.</span>
+      </li>
+      <li class="reveal">
+        <span class="numbered-list__label">Start the server</span>
+        <span class="numbered-list__desc">Run serve-deck.mjs. It watches the file and auto-reloads the browser on every save.</span>
+      </li>
+      <li class="reveal">
+        <span class="numbered-list__label">Iterate</span>
+        <span class="numbered-list__desc">Edit slides with the Edit tool. Changes appear instantly. No manual refresh.</span>
+      </li>
+      <li class="reveal">
+        <span class="numbered-list__label">Export PDF</span>
+        <span class="numbered-list__desc">Click "Download as PDF" in the overlay menu. Puppeteer renders pixel-perfect 16:9 pages.</span>
+      </li>
+    </ol>
+    <div class="callout reveal">
+      <p>The overlay menu and live-reload client are injected at serve time. The deck.html on disk stays clean and portable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SLIDE 4: FEATURE GRID ═══════════ -->
+<section class="slide">
+  <h2 class="slide__title reveal">Features at a Glance</h2>
+  <hr class="slide__accent reveal">
+  <div class="slide__body">
+    <div class="kv-grid">
+      <div class="kv-grid__row reveal">
+        <span class="kv-grid__label">Navigation</span>
+        <span class="kv-grid__value">Arrow keys, Space, Page Up/Down, touch/swipe, hash deep links</span>
+      </div>
+      <div class="kv-grid__row reveal">
+        <span class="kv-grid__label">Animations</span>
+        <span class="kv-grid__value">Staggered fade-up reveals via .reveal class, respects prefers-reduced-motion</span>
+      </div>
+      <div class="kv-grid__row reveal">
+        <span class="kv-grid__label">Overview mode</span>
+        <span class="kv-grid__value">Press P to see all slides at once, click any to jump</span>
+      </div>
+      <div class="kv-grid__row reveal">
+        <span class="kv-grid__label">PDF export</span>
+        <span class="kv-grid__value">Server-side Puppeteer rendering, one-click download from overlay menu</span>
+      </div>
+      <div class="kv-grid__row reveal">
+        <span class="kv-grid__label">Content patterns</span>
+        <span class="kv-grid__value">Header+body blocks, label-value grids, tables, numbered lists, callout boxes</span>
+      </div>
+    </div>
+  </div>
+  <footer class="slide__footnote">Press F for fullscreen. Press Esc to exit.</footer>
+</section>
+
+<!-- ═══════════ SLIDE 5: END ═══════════ -->
+<section class="slide slide--end">
+  <div class="slide__end-wordmark reveal">CoinFund</div>
+  <hr class="slide__divider slide__divider--end reveal">
+  <p class="slide__end-url reveal">coinfund.io</p>
+</section>
+
+<div class="deck-nav"><span id="nav-current"></span> / <span id="nav-total"></span></div>
+
+<script>
+(function() {
+  const html = document.documentElement;
+  if (html.dataset.mode !== 'dynamic') return;
+
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+  let overview = false;
+
+  const navCurrent = document.getElementById('nav-current');
+  const navTotal = document.getElementById('nav-total');
+  const progressBar = document.getElementById('deck-progress');
+  navTotal.textContent = total;
+
+  function scaleSlides() {
+    const sw = 960, sh = 540;
+    const scale = Math.min(window.innerWidth / sw, window.innerHeight / sh);
+    html.style.setProperty('--scale', scale);
+  }
+
+  function resetReveals(slide) {
+    slide.querySelectorAll('.reveal').forEach(el => {
+      el.style.transitionDelay = '';
+    });
+  }
+
+  function go(n) {
+    if (overview) return;
+    const prev = current;
+    current = Math.max(0, Math.min(total - 1, n));
+    slides.forEach((s, i) => {
+      const wasActive = s.classList.contains('active');
+      s.classList.toggle('active', i === current);
+      if (wasActive && i !== current) resetReveals(s);
+    });
+    navCurrent.textContent = current + 1;
+    progressBar.style.width = ((current + 1) / total * 100) + '%';
+    history.replaceState(null, '', '#slide-' + (current + 1));
+  }
+
+  function toggleOverview() {
+    overview = !overview;
+    html.classList.toggle('overview', overview);
+    document.querySelector('.deck-nav').style.display = overview ? 'none' : '';
+    progressBar.style.display = overview ? 'none' : '';
+    if (!overview) go(current);
+  }
+
+  window.addEventListener('keydown', e => {
+    if (overview && e.key !== 'p' && e.key !== 'P' && e.key !== 'Escape') {
+      return;
+    }
+    switch(e.key) {
+      case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown':
+        e.preventDefault(); go(current + 1); break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp':
+        e.preventDefault(); go(current - 1); break;
+      case 'Home': go(0); break;
+      case 'End': go(total - 1); break;
+      case 'f': case 'F':
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+        else document.exitFullscreen();
+        break;
+      case 'p': case 'P': toggleOverview(); break;
+      case 'Escape':
+        if (overview) toggleOverview();
+        break;
+    }
+  });
+
+  let touchStartX = 0, touchStartY = 0;
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) < 50 && Math.abs(dy) < 50) return;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      dx < 0 ? go(current + 1) : go(current - 1);
+    } else {
+      dy < 0 ? go(current + 1) : go(current - 1);
+    }
+  }, { passive: true });
+
+  document.addEventListener('click', e => {
+    if (!overview) return;
+    const slide = e.target.closest('.slide');
+    if (slide) {
+      current = slides.indexOf(slide);
+      toggleOverview();
+    }
+  });
+
+  const hash = parseInt(location.hash.replace('#slide-', ''), 10);
+  scaleSlides();
+  window.addEventListener('resize', scaleSlides);
+  go(isNaN(hash) ? 0 : hash - 1);
+})();
+</script>
+</body>
+</html>
