@@ -15,19 +15,8 @@ const MIME = {
 // SSE clients for live reload
 const clients = new Set();
 
-// Auto-shutdown when all browser tabs disconnect
-const SHUTDOWN_DELAY = 5000; // 5s grace period for reconnects / tab refresh
-let shutdownTimer = null;
-function scheduleShutdown() {
-  if (clients.size > 0) return;
-  shutdownTimer = setTimeout(() => {
-    console.log('All clients disconnected — shutting down.');
-    process.exit(0);
-  }, SHUTDOWN_DELAY);
-}
-function cancelShutdown() {
-  if (shutdownTimer) { clearTimeout(shutdownTimer); shutdownTimer = null; }
-}
+// No auto-shutdown — server stays alive for the session duration.
+// The agent starts it with run_in_background and it persists across edits.
 
 // Overlay menu — minimal CoinFund-styled toolbar injected into served HTML
 const INJECTED_SNIPPET = `
@@ -37,11 +26,10 @@ const INJECTED_SNIPPET = `
     width: 32px; height: 32px; border-radius: 4px;
     background: rgba(247,243,238,0.85); border: 1px solid #C8C2BA;
     cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 14px; color: #2C3E50; opacity: 0; transition: opacity 0.2s;
+    font-size: 14px; color: #2C3E50; opacity: 0.35; transition: opacity 0.2s;
     backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
   }
   .deck-menu-toggle:hover, .deck-menu-toggle.show { opacity: 1; }
-  body:hover .deck-menu-toggle { opacity: 0.5; }
   .deck-menu {
     position: fixed; top: 50px; right: 12px; z-index: 9999;
     background: #F7F3EE; border: 1px solid #C8C2BA; border-radius: 6px;
@@ -130,11 +118,7 @@ const server = createServer(async (req, res) => {
     });
     res.write('data: connected\n\n');
     clients.add(res);
-    req.on('close', () => {
-      clients.delete(res);
-      scheduleShutdown();
-    });
-    cancelShutdown();
+    req.on('close', () => { clients.delete(res); });
     return;
   }
 
@@ -164,7 +148,14 @@ const server = createServer(async (req, res) => {
     try {
       const browser = await puppeteer.default.launch();
       const page = await browser.newPage();
-      await page.goto('file://' + filePath, { waitUntil: 'networkidle0' });
+      // Use __export param so the server skips injecting SSE/overlay
+      // (SSE keeps a connection open which blocks networkidle0)
+      await page.goto(
+        'http://localhost:' + PORT + '/' + basename(file) + '?__export',
+        { waitUntil: 'networkidle0' }
+      );
+      // Wait for web fonts to load before rendering
+      await page.evaluateHandle('document.fonts.ready');
       await page.evaluate(() => {
         document.documentElement.dataset.mode = 'static';
         document.querySelectorAll('.slide').forEach(s => {
@@ -175,9 +166,9 @@ const server = createServer(async (req, res) => {
           s.style.margin = '0 auto';
           s.style.pointerEvents = 'auto';
         });
-        // Hide server-injected UI and deck chrome
+        // Hide deck chrome (nav, progress bar)
         document.querySelectorAll(
-          '.deck-nav, .deck-progress, .deck-menu-toggle, .deck-menu'
+          '.deck-nav, .deck-progress'
         ).forEach(el => el.style.display = 'none');
       });
       const pdf = await page.pdf({
@@ -211,7 +202,8 @@ const server = createServer(async (req, res) => {
     }
     const contentType = MIME[ext] || 'application/octet-stream';
     // Inject overlay menu + reload snippet into HTML responses
-    if (ext === '.html') {
+    // Skip injection for __export requests (used by Puppeteer PDF export)
+    if (ext === '.html' && !url.searchParams.has('__export')) {
       data = Buffer.from(
         data.toString().replace('</body>', INJECTED_SNIPPET + '\n</body>')
       );
