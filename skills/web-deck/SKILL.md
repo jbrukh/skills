@@ -235,13 +235,13 @@ Then:
 
 **Do not regenerate the boilerplate from memory.** Always copy the template file.
 
-## Live Development Server
+## Live Development Server (MANDATORY)
 
-The skill includes a bundled dev server at `serve-deck.mjs` (in the same directory as this SKILL.md). It provides live reload, an overlay menu, and PDF export — zero npm dependencies (Puppeteer auto-installed on first PDF export).
+**ALWAYS serve decks through the dev server.** Never open deck files directly via `file://` — the server provides live reload, the hamburger overlay menu, and PDF export. Without it, the user gets a static file with no interactivity tools.
+
+The dev server is at `serve-deck.mjs` (same directory as this SKILL.md). Zero npm dependencies (Puppeteer auto-installed on first PDF export).
 
 ### Starting the server
-
-The server takes a port and the directory containing the deck HTML file:
 
 ```bash
 node /path/to/skills/web-deck/serve-deck.mjs 3333 /path/to/deck/directory
@@ -252,17 +252,17 @@ Then open the browser:
 open http://localhost:3333/deck.html
 ```
 
-PDF export auto-installs Puppeteer on first use (no manual setup needed).
+**Start the server BEFORE opening the browser.** Use `run_in_background: true` so it persists across edits.
 
 ### What the server provides
 
-1. **Live reload** — SSE-based, auto-reloads the browser on every file save
-2. **Overlay menu** — subtle hamburger icon (top-right, fades in on hover) with:
-   - **Download as PDF** — renders via Puppeteer server-side, streams as a download
-   - **Cmd+P hint** — reminder that browser print also works
+1. **Live reload** — SSE-based, auto-reloads the browser on every file save. The user sees changes instantly as you edit slides.
+2. **Hamburger overlay menu** — always-visible hamburger icon (☰) in the top-right corner with:
+   - **Download as PDF** — Puppeteer renders the deck server-side at 960×540px per slide, producing a faithful PDF with all fonts and styles intact. Auto-installs Puppeteer on first use.
+   - **⌘P hint** — reminder that browser print also works
 3. **Static file serving** — serves the deck and any local assets (images, fonts)
 
-The overlay menu and reload client are injected at serve time — they do not exist in the `deck.html` file itself. The deck stays clean and self-contained.
+The overlay menu and reload client are **injected at serve time** — they do not exist in the `deck.html` file itself. The deck stays clean and self-contained. This is why the server is mandatory: without it, no hamburger menu, no PDF export, no live reload.
 
 ### Workflow
 
@@ -270,15 +270,16 @@ The overlay menu and reload client are injected at serve time — they do not ex
 2. Copy the template: `cp <skill-dir>/template.html deck.html`
 3. Set the mode, title, and subtitle in the copied file
 4. Choose the right content pattern for each slide and add content slides
-5. **Start the server** (background, one time): `node <skill-dir>/serve-deck.mjs 3333 .`
+5. **Start the server** (background, one time): `node <skill-dir>/serve-deck.mjs 3333 .` with `run_in_background: true`
 6. **Open in browser** (one time): `open http://localhost:3333/deck.html`
-7. **Iterate** — use the Edit tool to modify slides. Changes appear in the browser instantly.
-8. Download PDF from the overlay menu when ready.
+7. **Iterate** — use the Edit tool to modify slides. The browser auto-reloads on every save.
+8. User clicks the **hamburger menu → Download as PDF** when ready.
 
 ### Important: keep the server running
 
 - Start the server with `run_in_background: true` so it persists across edits
 - The second argument is the directory to serve (defaults to `.`)
+- The server stays alive for the session — no auto-shutdown
 - When the session ends or user is done, kill the server: `pkill -f serve-deck` or let it die naturally
 
 ## Style Principles
